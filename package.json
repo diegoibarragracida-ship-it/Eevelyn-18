@@ -1,0 +1,18 @@
+{
+  "name": "evelyn-18-sistema",
+  "version": "1.0.0",
+  "description": "Invitacion digital + panel del festejado + panel de recepcion (18 anos de Evelyn)",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "uuid": "^9.0.1",
+    "pg": "^8.12.0"
+  }
+}
