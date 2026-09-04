@@ -14,9 +14,9 @@
   --plum: #1a1b1f;
   --plum-soft: #2b2d33;
   --cream: #f4f4f6;
-  --cream-dark: #dcdde1;
-  --ink: #17181c;
-  --ink-soft: #6b6d75;
+  --cream-dark: var(--panel-border);
+  --ink: #f2f3f5;
+  --ink-soft: #b7bac2;
   --silver: #c7cad1;
   --silver-dark: #888b93;
   --silver-light: #f2f3f5;
@@ -29,6 +29,8 @@
   --neon-blue: #2fd8ff;
   --neon-purple: #b23fff;
   --neon-green: #39ff9c;
+  --panel: rgba(255,255,255,0.06);
+  --panel-border: rgba(255,255,255,0.16);
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -44,7 +46,7 @@ h1,h2,h3 { font-family: 'Cinzel', serif; margin: 0; font-weight: 600; letter-spa
 p { line-height: 1.65; margin: 0; }
 .script { font-family: 'Parisienne', cursive; }
 
-.card { width: 100%; max-width: 500px; background: var(--cream); min-height: 100vh; position: relative; overflow: hidden; }
+.card { width: 100%; max-width: 500px; background: var(--night); min-height: 100vh; position: relative; overflow: hidden; }
 
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.8s ease, transform 0.8s ease; }
 .reveal.show { opacity: 1; transform: translateY(0); }
@@ -130,20 +132,22 @@ p { line-height: 1.65; margin: 0; }
   position: absolute; top: 50%; left: 50%; width: 220%; height: 3px;
   background: linear-gradient(90deg, transparent 0%, var(--laser) 45%, var(--laser) 55%, transparent 100%);
   transform-origin: 0 50%; opacity: 0; filter: blur(0.5px);
-  animation: laser-sweep 6s ease-in-out infinite;
+  animation: laser-sweep 11s ease-in-out infinite;
 }
-.laser-beam.b2 { animation-delay: 1.3s; animation-duration: 7.5s; background: linear-gradient(90deg, transparent 0%, var(--laser-soft) 45%, var(--laser-soft) 55%, transparent 100%); }
-.laser-beam.b3 { animation-delay: 2.6s; animation-duration: 5.2s; }
-.laser-beam.b4 { animation-delay: 4s; animation-duration: 8s; background: linear-gradient(90deg, transparent 0%, var(--laser-soft) 45%, var(--laser-soft) 55%, transparent 100%); }
-.laser-beam.pink { background: linear-gradient(90deg, transparent 0%, #ffffff 45%, #ffffff 55%, transparent 100%); animation-delay: 0.6s; animation-duration: 6.8s; }
-.laser-beam.blue { background: linear-gradient(90deg, transparent 0%, var(--silver-light) 45%, var(--silver-light) 55%, transparent 100%); animation-delay: 2s; animation-duration: 7.2s; }
-.laser-beam.purple { background: linear-gradient(90deg, transparent 0%, var(--silver) 45%, var(--silver) 55%, transparent 100%); animation-delay: 3.2s; animation-duration: 6.2s; }
+.laser-beam.b2 { animation-delay: 1.6s; animation-duration: 13s; background: linear-gradient(90deg, transparent 0%, var(--laser-soft) 45%, var(--laser-soft) 55%, transparent 100%); }
+.laser-beam.b3 { animation-delay: 3.2s; animation-duration: 9.5s; }
+.laser-beam.b4 { animation-delay: 5s; animation-duration: 14s; background: linear-gradient(90deg, transparent 0%, var(--laser-soft) 45%, var(--laser-soft) 55%, transparent 100%); }
+.laser-beam.b5 { animation-delay: 2.4s; animation-duration: 12.5s; }
+.laser-beam.b6 { animation-delay: 6.5s; animation-duration: 15s; background: linear-gradient(90deg, transparent 0%, var(--laser-soft) 45%, var(--laser-soft) 55%, transparent 100%); }
+.laser-beam.pink { background: linear-gradient(90deg, transparent 0%, #ffffff 45%, #ffffff 55%, transparent 100%); animation-delay: 0.8s; animation-duration: 12s; }
+.laser-beam.blue { background: linear-gradient(90deg, transparent 0%, var(--silver-light) 45%, var(--silver-light) 55%, transparent 100%); animation-delay: 3s; animation-duration: 13.5s; }
+.laser-beam.purple { background: linear-gradient(90deg, transparent 0%, var(--silver) 45%, var(--silver) 55%, transparent 100%); animation-delay: 4.6s; animation-duration: 11.5s; }
 @keyframes laser-sweep {
-  0% { transform: rotate(-35deg) scaleX(0.7); opacity: 0; }
-  8% { opacity: 0.55; }
-  50% { transform: rotate(35deg) scaleX(1); opacity: 0.4; }
-  92% { opacity: 0.5; }
-  100% { transform: rotate(-35deg) scaleX(0.7); opacity: 0; }
+  0% { transform: rotate(0deg) scaleX(0.9); opacity: 0.45; }
+  25% { opacity: 0.6; }
+  50% { transform: rotate(180deg) scaleX(1); opacity: 0.4; }
+  75% { opacity: 0.6; }
+  100% { transform: rotate(360deg) scaleX(0.9); opacity: 0.45; }
 }
 
 /* --- BOLA DE DISCO REAL (facetada) --- */
@@ -305,7 +309,7 @@ p { line-height: 1.65; margin: 0; }
 }
 
 /* --- hero --- */
-.inv-hero { position: relative; padding: 96px 24px 54px; text-align: center; background: linear-gradient(180deg, var(--night) 0%, var(--plum) 55%, var(--cream) 100%); color: var(--white); overflow: hidden; }
+.inv-hero { position: relative; padding: 96px 24px 54px; text-align: center; background: linear-gradient(180deg, var(--night) 0%, var(--plum) 55%, var(--night) 100%); color: var(--white); overflow: hidden; }
 .theme-badge { display: inline-block; padding: 6px 18px; border: 1px solid rgba(255,255,255,0.4); border-radius: 999px; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--silver-light); margin-bottom: 18px; box-shadow: 0 0 12px rgba(255,255,255,0.25); }
 .eyebrow { display: block; font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 6px; }
 .inv-hero h1 { font-size: 3.4rem; color: var(--white); text-shadow: 0 0 22px rgba(255,255,255,0.4); margin-top: 8px; letter-spacing: 0.01em; }
@@ -331,22 +335,22 @@ p { line-height: 1.65; margin: 0; }
 .scroll-cue { margin-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 4px; color: rgba(255,255,255,0.6); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; animation: scroll-bounce 2s ease-in-out infinite; }
 @keyframes scroll-bounce { 0%,100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(6px); opacity: 1; } }
 
-.inv-for { text-align: center; padding: 26px 24px 6px; font-family: 'Parisienne', cursive; font-size: 1.5rem; color: var(--plum); }
+.inv-for { text-align: center; padding: 26px 24px 6px; font-family: 'Parisienne', cursive; font-size: 1.5rem; color: var(--silver-light); }
 
 /* --- secciones --- */
 .section-block { position: relative; padding: 30px 24px 6px; text-align: center; }
-.section-block h2 { font-size: 1.5rem; color: var(--plum); margin: 6px 0 14px; }
+.section-block h2 { font-size: 1.5rem; color: var(--silver-light); margin: 6px 0 14px; }
 .section-block .eyebrow { color: var(--silver-dark); }
 .story-text { font-size: 1.05rem; color: var(--ink-soft); }
-.story-quote { font-family: 'Parisienne', cursive; font-size: 1.35rem; color: var(--plum); margin-top: 14px; line-height: 1.5; }
+.story-quote { font-family: 'Parisienne', cursive; font-size: 1.35rem; color: var(--silver-light); margin-top: 14px; line-height: 1.5; }
 
 .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
 .gallery img { width: 100%; height: 140px; object-fit: cover; border-radius: 14px; box-shadow: 0 6px 18px rgba(0,0,0,0.18); }
 .gallery img.tall { grid-row: span 2; height: 290px; }
 
-.padrino-single { margin-top: 10px; background: var(--white); border: 1px solid var(--cream-dark); border-radius: 16px; padding: 20px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
+.padrino-single { margin-top: 10px; background: var(--panel); border: 1px solid var(--cream-dark); border-radius: 16px; padding: 20px; box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
 .padrino-single .role { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--silver-dark); margin-bottom: 8px; }
-.padrino-single .pname { font-family: 'Cinzel', serif; font-size: 1.08rem; color: var(--plum); line-height: 1.7; }
+.padrino-single .pname { font-family: 'Cinzel', serif; font-size: 1.08rem; color: var(--silver-light); line-height: 1.7; }
 
 .timeline { margin-top: 18px; text-align: left; }
 .timeline-item { display: flex; gap: 14px; }
@@ -358,25 +362,25 @@ p { line-height: 1.65; margin: 0; }
 .tlabel { font-size: 1.05rem; color: var(--ink); margin-top: 2px; }
 .timeline-note { margin-top: 4px; font-size: 0.86rem; color: var(--ink-soft); background: var(--cream-dark); border-radius: 12px; padding: 12px 14px; text-align: left; }
 
-.place-card { margin-top: 22px; background: var(--white); border: 1px solid var(--cream-dark); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.06); text-align: left; }
-.place-card h3 { padding: 18px 18px 4px; color: var(--plum); font-size: 1.15rem; }
+.place-card { margin-top: 22px; background: var(--panel); border: 1px solid var(--cream-dark); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.25); text-align: left; }
+.place-card h3 { padding: 18px 18px 4px; color: var(--silver-light); font-size: 1.15rem; }
 .place-card p { padding: 0 18px; color: var(--ink-soft); font-size: 0.95rem; }
 .place-card .hours { display: flex; flex-direction: column; gap: 4px; padding: 12px 18px 0; font-size: 0.86rem; color: var(--ink-soft); }
 .place-card iframe { width: 100%; height: 180px; border: 0; margin-top: 14px; }
-.mapbtn { display: block; text-align: center; padding: 12px; background: var(--plum); color: var(--white); text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.04em; }
+.mapbtn { display: block; text-align: center; padding: 12px; background: var(--plum); border-top: 1px solid var(--panel-border); color: var(--white); text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.04em; }
 
-.gift-card { margin-top: 4px; background: var(--white); border: 1px dashed var(--silver-dark); border-radius: 16px; padding: 18px; text-align: left; }
+.gift-card { margin-top: 4px; background: var(--panel); border: 1px dashed var(--silver-dark); border-radius: 16px; padding: 18px; text-align: left; }
 .gift-card p { color: var(--ink-soft); font-size: 0.95rem; }
 
 .inv-rsvp { position: relative; padding: 34px 24px 10px; text-align: center; }
 .inv-rsvp .sub { color: var(--ink-soft); font-size: 0.94rem; margin: 6px 0 18px; }
 .rsvp-form { display: flex; flex-direction: column; gap: 12px; align-items: center; }
-.rsvp-form select { width: 100%; max-width: 320px; padding: 11px 14px; border-radius: 10px; border: 1px solid var(--cream-dark); font-family: inherit; font-size: 1rem; background: var(--white); }
+.rsvp-form select { width: 100%; max-width: 320px; padding: 11px 14px; border-radius: 10px; border: 1px solid var(--cream-dark); font-family: inherit; font-size: 1rem; background: var(--panel); color: var(--ink); }
 .rsvp-btns { display: flex; gap: 10px; width: 100%; max-width: 320px; }
-.rsvp-btn { flex: 1; padding: 11px 8px; border-radius: 10px; border: 1.5px solid var(--plum); background: transparent; color: var(--plum); font-family: 'Cinzel', serif; font-size: 0.82rem; letter-spacing: 0.02em; cursor: pointer; }
-.rsvp-btn.chosen-yes { background: var(--plum); color: var(--white); }
-.rsvp-btn.chosen-no { background: var(--ink-soft); color: var(--white); border-color: var(--ink-soft); }
-.rsvp-msg { min-height: 1.4em; font-size: 0.9rem; color: var(--plum); }
+.rsvp-btn { flex: 1; padding: 11px 8px; border-radius: 10px; border: 1.5px solid var(--silver); background: transparent; color: var(--silver-light); font-family: 'Cinzel', serif; font-size: 0.82rem; letter-spacing: 0.02em; cursor: pointer; }
+.rsvp-btn.chosen-yes { background: var(--plum); color: var(--white); border-color: var(--silver-light); }
+.rsvp-btn.chosen-no { background: var(--ink-soft); color: var(--night); border-color: var(--ink-soft); }
+.rsvp-msg { min-height: 1.4em; font-size: 0.9rem; color: var(--silver-light); }
 .whatsapp-btn { display: inline-block; margin-top: 14px; padding: 12px 26px; border-radius: 999px; background: #25D366; color: #fff; text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.03em; }
 
 .inv-pass-wrap { padding: 30px 24px 10px; text-align: center; }
@@ -430,6 +434,8 @@ p { line-height: 1.65; margin: 0; }
     <div class="laser-beam b2"></div>
     <div class="laser-beam b3"></div>
     <div class="laser-beam b4"></div>
+    <div class="laser-beam b5"></div>
+    <div class="laser-beam b6"></div>
     <div class="laser-beam pink"></div>
     <div class="laser-beam blue"></div>
     <div class="laser-beam purple"></div>
@@ -486,8 +492,10 @@ p { line-height: 1.65; margin: 0; }
       <div class="laser-beam"></div>
       <div class="laser-beam b2"></div>
       <div class="laser-beam b4"></div>
+      <div class="laser-beam b5"></div>
       <div class="laser-beam pink"></div>
       <div class="laser-beam blue"></div>
+      <div class="laser-beam purple"></div>
     </div>
     <div class="deco-layer">
       <svg class="deco-star silver" style="top:10%; left:12%; width:12px; animation-delay:0s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z"/></svg>
@@ -495,27 +503,11 @@ p { line-height: 1.65; margin: 0; }
       <svg class="deco-star silver" style="top:34%; left:6%; width:9px; animation-delay:1.4s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z"/></svg>
       <svg class="deco-star silver" style="bottom:8%; right:14%; width:11px; animation-delay:0.4s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z"/></svg>
     </div>
-    <div class="discoball" style="width:60px; height:60px; margin-bottom:10px;">
-      <div class="discoball-glow"></div>
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="ballShadeHero" cx="35%" cy="30%" r="75%">
-            <stop offset="0%" stop-color="#ffffff"/>
-            <stop offset="45%" stop-color="#c7cad1"/>
-            <stop offset="100%" stop-color="#5a5c63"/>
-          </radialGradient>
-        </defs>
-        <circle cx="50" cy="50" r="46" fill="url(#ballShadeHero)"/>
-        <g stroke="#1a1b1f" stroke-width="0.9" opacity="0.55">
-          <path d="M4,50 H96 M50,4 V96 M12,20 L88,80 M12,80 L88,20" fill="none"/>
-          <circle cx="50" cy="50" r="46" fill="none"/>
-          <circle cx="50" cy="50" r="33" fill="none"/>
-          <circle cx="50" cy="50" r="18" fill="none"/>
-          <path d="M9,32 A46,46 0 0 1 91,32 M9,68 A46,46 0 0 1 91,68" fill="none"/>
-          <path d="M25,10 A46,46 0 0 1 75,10 M25,90 A46,46 0 0 1 75,90" fill="none"/>
-        </g>
-      </svg>
-      <div class="glint"></div>
+    <div style="position:relative; width:100px; height:100px; margin:0 auto 10px;">
+      <div class="discoball-glow" style="position:absolute; inset:0; z-index:-1;"></div>
+      <div class="ball3d-scene" style="width:100px; height:100px;">
+        <div class="ball3d" id="ball3d-hero"></div>
+      </div>
     </div>
     <div class="theme-badge">🖤 Tema · Bola de disco</div><br/>
     <span class="eyebrow">Mis dieciocho años</span>
@@ -607,8 +599,10 @@ p { line-height: 1.65; margin: 0; }
     <div class="laser-layer">
       <div class="laser-beam"></div>
       <div class="laser-beam b3"></div>
+      <div class="laser-beam b6"></div>
       <div class="laser-beam purple"></div>
       <div class="laser-beam blue"></div>
+      <div class="laser-beam pink"></div>
     </div>
     <div class="deco-layer">
       <svg class="deco-star" style="top:3%; left:8%; width:9px; animation-delay:0.3s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z"/></svg>
@@ -653,7 +647,7 @@ p { line-height: 1.65; margin: 0; }
 
   <div class="section-block reveal" style="padding-top:0;">
     <div class="gift-card led-card">
-      <h3 style="color:var(--plum); font-size:1.02rem; margin-bottom:8px;"><span class="mini-disco" style="font-size:0.9em;">✨</span> Lluvia de sobres</h3>
+      <h3 style="color:var(--silver-light); font-size:1.02rem; margin-bottom:8px;"><span class="mini-disco" style="font-size:0.9em;">✨</span> Lluvia de sobres</h3>
       <p>Tu presencia es el regalo más importante para mí. Si deseas obsequiarme algo, ten tu sobre listo, ¡una lluvia de sobres será muy apreciada! 🖤</p>
     </div>
   </div>
@@ -718,12 +712,12 @@ p { line-height: 1.65; margin: 0; }
 
 <script>
 /* ---------------- BOLA DE DISCO 3D (facetas CSS reales) ---------------- */
-function buildBall3D() {
-  const ball = document.getElementById('ball3d');
+function buildBall3D(elementId, radius) {
+  const ball = document.getElementById(elementId);
   if (!ball) return;
-  const radius = 95;
   const rows = 9;      // anillos de latitud
   const colsMax = 13;  // facetas por anillo ecuatorial
+  const facetSize = Math.max(7, Math.round(radius * 0.16));
   for (let r = 0; r < rows; r++) {
     const lat = -75 + (150 / (rows - 1)) * r; // -75° a 75°
     const cols = Math.max(3, Math.round(colsMax * Math.cos(lat * Math.PI / 180)));
@@ -731,6 +725,10 @@ function buildBall3D() {
       const lon = (360 / cols) * c;
       const facet = document.createElement('div');
       facet.className = 'facet' + (Math.random() < 0.55 ? ' spark' : '');
+      facet.style.width = facetSize + 'px';
+      facet.style.height = facetSize + 'px';
+      facet.style.marginLeft = (-facetSize / 2) + 'px';
+      facet.style.marginTop = (-facetSize / 2) + 'px';
       facet.style.transform = `rotateY(${lon}deg) rotateX(${lat}deg) translateZ(${radius}px)`;
       if (facet.classList.contains('spark')) {
         facet.style.animationDelay = (Math.random() * 2.4) + 's';
@@ -739,7 +737,8 @@ function buildBall3D() {
     }
   }
 }
-buildBall3D();
+buildBall3D('ball3d', 95);
+buildBall3D('ball3d-hero', 45);
 function openInvitation() {
   document.getElementById('seal-overlay').classList.add('hidden');
   starConfetti();
