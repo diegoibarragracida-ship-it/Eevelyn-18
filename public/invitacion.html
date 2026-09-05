@@ -48,6 +48,18 @@ p { line-height: 1.65; margin: 0; }
 
 .card { width: 100%; max-width: 500px; background: var(--night); min-height: 100vh; position: relative; overflow: hidden; }
 
+#music-toggle {
+  position: fixed; bottom: 18px; right: 18px; z-index: 999;
+  width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.5);
+  background: rgba(20,20,24,0.65); backdrop-filter: blur(4px);
+  color: #fff; font-size: 1.2rem; cursor: pointer;
+  display: none; align-items: center; justify-content: center;
+  box-shadow: 0 0 16px rgba(255,255,255,0.25);
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+#music-toggle.show { display: flex; }
+#music-toggle.muted { opacity: 0.5; animation: none; }
+
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.8s ease, transform 0.8s ease; }
 .reveal.show { opacity: 1; transform: translateY(0); }
 
@@ -433,6 +445,12 @@ p { line-height: 1.65; margin: 0; }
     </symbol>
   </defs>
 </svg>
+
+<audio id="bg-music" loop preload="auto">
+  <source src="audio/musica-fondo.mp3" type="audio/mpeg">
+</audio>
+
+<button id="music-toggle" onclick="toggleMusic()" aria-label="Silenciar o activar música">🎵</button>
 
 <div class="ambient-particles" id="ambient-particles"></div>
 
@@ -827,6 +845,27 @@ buildBall3D('ball3d-mini-4', 16);
 function openInvitation() {
   document.getElementById('seal-overlay').classList.add('hidden');
   starConfetti();
+  const music = document.getElementById('bg-music');
+  if (music) {
+    music.volume = 0.6;
+    music.play().catch(() => {});
+    document.getElementById('music-toggle').classList.add('show');
+  }
+}
+
+function toggleMusic() {
+  const music = document.getElementById('bg-music');
+  const btn = document.getElementById('music-toggle');
+  if (!music) return;
+  if (music.paused) {
+    music.play().catch(() => {});
+    btn.classList.remove('muted');
+    btn.textContent = '🎵';
+  } else {
+    music.pause();
+    btn.classList.add('muted');
+    btn.textContent = '🔇';
+  }
 }
 
 /* ---------------- BRILLOS AMBIENTALES ---------------- */
