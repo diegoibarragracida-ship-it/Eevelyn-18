@@ -141,9 +141,9 @@ p { line-height: 1.65; margin: 0; }
 .laser-layer { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; mix-blend-mode: screen; }
 .laser-layer.fixed-full { position: fixed; z-index: 2; }
 .laser-beam {
-  position: absolute; top: 50%; left: 50%; width: 220%; height: 3px;
+  position: absolute; top: 50%; left: 50%; width: 220%; height: 4px;
   background: linear-gradient(90deg, transparent 0%, var(--laser) 45%, var(--laser) 55%, transparent 100%);
-  transform-origin: 0 50%; opacity: 0; filter: blur(0.5px);
+  transform-origin: 0 50%; opacity: 0; filter: blur(0.5px) drop-shadow(0 0 6px rgba(255,255,255,0.8));
   animation: laser-sweep 11s ease-in-out infinite;
 }
 .laser-beam.b2 { animation-delay: 1.6s; animation-duration: 13s; background: linear-gradient(90deg, transparent 0%, var(--laser-soft) 45%, var(--laser-soft) 55%, transparent 100%); }
@@ -151,15 +151,15 @@ p { line-height: 1.65; margin: 0; }
 .laser-beam.b4 { animation-delay: 5s; animation-duration: 14s; background: linear-gradient(90deg, transparent 0%, var(--laser-soft) 45%, var(--laser-soft) 55%, transparent 100%); }
 .laser-beam.b5 { animation-delay: 2.4s; animation-duration: 12.5s; }
 .laser-beam.b6 { animation-delay: 6.5s; animation-duration: 15s; background: linear-gradient(90deg, transparent 0%, var(--laser-soft) 45%, var(--laser-soft) 55%, transparent 100%); }
-.laser-beam.pink { background: linear-gradient(90deg, transparent 0%, #ffffff 45%, #ffffff 55%, transparent 100%); animation-delay: 0.8s; animation-duration: 12s; }
-.laser-beam.blue { background: linear-gradient(90deg, transparent 0%, var(--silver-light) 45%, var(--silver-light) 55%, transparent 100%); animation-delay: 3s; animation-duration: 13.5s; }
-.laser-beam.purple { background: linear-gradient(90deg, transparent 0%, var(--silver) 45%, var(--silver) 55%, transparent 100%); animation-delay: 4.6s; animation-duration: 11.5s; }
+.laser-beam.pink { background: linear-gradient(90deg, transparent 0%, var(--neon-pink) 45%, var(--neon-pink) 55%, transparent 100%); animation-delay: 0.8s; animation-duration: 12s; filter: blur(0.5px) drop-shadow(0 0 10px var(--neon-pink)); }
+.laser-beam.blue { background: linear-gradient(90deg, transparent 0%, var(--neon-blue) 45%, var(--neon-blue) 55%, transparent 100%); animation-delay: 3s; animation-duration: 13.5s; filter: blur(0.5px) drop-shadow(0 0 10px var(--neon-blue)); }
+.laser-beam.purple { background: linear-gradient(90deg, transparent 0%, var(--neon-purple) 45%, var(--neon-purple) 55%, transparent 100%); animation-delay: 4.6s; animation-duration: 11.5s; filter: blur(0.5px) drop-shadow(0 0 10px var(--neon-purple)); }
 @keyframes laser-sweep {
-  0% { transform: rotate(0deg) scaleX(0.9); opacity: 0.45; }
-  25% { opacity: 0.6; }
-  50% { transform: rotate(180deg) scaleX(1); opacity: 0.4; }
-  75% { opacity: 0.6; }
-  100% { transform: rotate(360deg) scaleX(0.9); opacity: 0.45; }
+  0% { transform: rotate(0deg) scaleX(0.9); opacity: 0.75; }
+  25% { opacity: 0.95; }
+  50% { transform: rotate(180deg) scaleX(1); opacity: 0.7; }
+  75% { opacity: 0.95; }
+  100% { transform: rotate(360deg) scaleX(0.9); opacity: 0.75; }
 }
 
 /* --- BOLA DE DISCO REAL (facetada) --- */
@@ -170,20 +170,21 @@ p { line-height: 1.65; margin: 0; }
   0%,100% { opacity: 0.5; background-position: 35% 28%; }
   50% { opacity: 1; background-position: 65% 40%; }
 }
-.discoball .ray { position: absolute; top: 50%; left: 50%; width: 2px; height: 46px; background: linear-gradient(180deg, var(--laser), transparent); transform-origin: 50% 0%; opacity: 0.7; animation: ray-pulse 2.2s ease-in-out infinite; }
-.discoball .ray.pink { background: linear-gradient(180deg, var(--neon-pink), transparent); }
-.discoball .ray.blue { background: linear-gradient(180deg, var(--neon-blue), transparent); }
-.discoball .ray.purple { background: linear-gradient(180deg, var(--neon-purple), transparent); }
-@keyframes ray-pulse { 0%,100% { opacity: 0.15; } 50% { opacity: 0.75; } }
+.discoball .ray { position: absolute; top: 50%; left: 50%; width: 3px; height: 56px; background: linear-gradient(180deg, var(--laser), transparent); transform-origin: 50% 0%; opacity: 0.7; animation: ray-pulse 2.2s ease-in-out infinite; filter: drop-shadow(0 0 6px rgba(255,255,255,0.8)); }
+.discoball .ray.pink { background: linear-gradient(180deg, var(--neon-pink), transparent); filter: drop-shadow(0 0 8px var(--neon-pink)); }
+.discoball .ray.blue { background: linear-gradient(180deg, var(--neon-blue), transparent); filter: drop-shadow(0 0 8px var(--neon-blue)); }
+.discoball .ray.purple { background: linear-gradient(180deg, var(--neon-purple), transparent); filter: drop-shadow(0 0 8px var(--neon-purple)); }
+.discoball .ray.green { background: linear-gradient(180deg, var(--neon-green), transparent); filter: drop-shadow(0 0 8px var(--neon-green)); }
+@keyframes ray-pulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
 .discoball-glow { position: absolute; inset: -30px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.4), rgba(199,202,209,0.3) 45%, transparent 70%); filter: blur(10px); animation: glow-pulse 3s ease-in-out infinite; z-index: -1; }
 
 /* --- mini bolas de disco repartidas por la página, con sus propios láseres --- */
 .mini-disco-station { position: absolute; z-index: 1; pointer-events: none; }
-.mini-disco-station .ray { position: absolute; top: 50%; left: 50%; width: 2px; height: 55px; background: linear-gradient(180deg, var(--laser), transparent); transform-origin: 50% 0%; opacity: 0.6; animation: ray-pulse 2.4s ease-in-out infinite; }
-.mini-disco-station .ray.pink { background: linear-gradient(180deg, var(--neon-pink), transparent); }
-.mini-disco-station .ray.blue { background: linear-gradient(180deg, var(--neon-blue), transparent); }
-.mini-disco-station .ray.purple { background: linear-gradient(180deg, var(--neon-purple), transparent); }
-.mini-disco-station .ray.green { background: linear-gradient(180deg, var(--neon-green), transparent); }
+.mini-disco-station .ray { position: absolute; top: 50%; left: 50%; width: 3px; height: 60px; background: linear-gradient(180deg, var(--laser), transparent); transform-origin: 50% 0%; opacity: 0.7; animation: ray-pulse 2.4s ease-in-out infinite; filter: drop-shadow(0 0 6px rgba(255,255,255,0.8)); }
+.mini-disco-station .ray.pink { background: linear-gradient(180deg, var(--neon-pink), transparent); filter: drop-shadow(0 0 8px var(--neon-pink)); }
+.mini-disco-station .ray.blue { background: linear-gradient(180deg, var(--neon-blue), transparent); filter: drop-shadow(0 0 8px var(--neon-blue)); }
+.mini-disco-station .ray.purple { background: linear-gradient(180deg, var(--neon-purple), transparent); filter: drop-shadow(0 0 8px var(--neon-purple)); }
+.mini-disco-station .ray.green { background: linear-gradient(180deg, var(--neon-green), transparent); filter: drop-shadow(0 0 8px var(--neon-green)); }
 @keyframes glow-pulse { 0%,100% { opacity: 0.5; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.15); } }
 
 /* --- letrero de neón --- */
@@ -341,7 +342,7 @@ p { line-height: 1.65; margin: 0; }
 .hero-photo-wrap { position: relative; width: calc(100% + 48px); height: 320px; margin: 26px -24px 8px; }
 .hero-photo-ring { position: absolute; inset: 0; border-radius: 0; border: 1.5px solid rgba(255,255,255,0.55); box-shadow: 0 0 22px rgba(255,255,255,0.3), inset 0 0 14px rgba(255,255,255,0.15); animation: ring-pulse 3.2s ease-in-out infinite; pointer-events: none; }
 @keyframes ring-pulse { 0%,100% { box-shadow: 0 0 16px rgba(255,255,255,0.22), inset 0 0 10px rgba(255,255,255,0.1); } 50% { box-shadow: 0 0 30px rgba(255,255,255,0.45), inset 0 0 18px rgba(255,255,255,0.2); } }
-.hero-photo { width: 100%; height: 100%; border-radius: 0; object-fit: cover; border: 3px solid var(--white); display: block; }
+.hero-photo { width: 100%; height: 100%; border-radius: 0; object-fit: cover; object-position: center 12%; border: 3px solid var(--white); display: block; }
 
 .ornament { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 16px 0 12px; }
 .ornament .line { height: 1px; width: 46px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6)); }
@@ -546,14 +547,14 @@ p { line-height: 1.65; margin: 0; }
       <div class="laser-beam purple"></div>
     </div>
     <div class="deco-layer">
-      <svg class="deco-star silver balloon-star" style="top:36%; left:6%; width:58px; animation-delay:0s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star silver balloon-star" style="top:40%; right:4%; width:68px; animation-delay:0.8s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star silver balloon-star" style="top:50%; left:2%; width:48px; animation-delay:1.4s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star silver balloon-star" style="top:56%; right:6%; width:60px; animation-delay:0.4s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star silver balloon-star" style="top:66%; left:6%; width:64px; animation-delay:1s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star silver balloon-star" style="top:70%; right:2%; width:50px; animation-delay:0.6s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star silver balloon-star" style="bottom:14%; left:9%; width:62px; animation-delay:1.2s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star silver balloon-star" style="bottom:10%; right:10%; width:70px; animation-delay:0.2s;"><use href="#starTpl"></use></svg>
+      <svg class="deco-star silver balloon-star" style="top:32%; left:2%; width:116px; animation-delay:0s;"><use href="#starTpl"></use></svg>
+      <svg class="deco-star silver balloon-star" style="top:38%; right:0%; width:136px; animation-delay:0.8s;"><use href="#starTpl"></use></svg>
+      <svg class="deco-star silver balloon-star" style="top:52%; left:-2%; width:96px; animation-delay:1.4s;"><use href="#starTpl"></use></svg>
+      <svg class="deco-star silver balloon-star" style="top:58%; right:0%; width:120px; animation-delay:0.4s;"><use href="#starTpl"></use></svg>
+      <svg class="deco-star silver balloon-star" style="top:70%; left:0%; width:128px; animation-delay:1s;"><use href="#starTpl"></use></svg>
+      <svg class="deco-star silver balloon-star" style="top:76%; right:-2%; width:100px; animation-delay:0.6s;"><use href="#starTpl"></use></svg>
+      <svg class="deco-star silver balloon-star" style="bottom:8%; left:4%; width:124px; animation-delay:1.2s;"><use href="#starTpl"></use></svg>
+      <svg class="deco-star silver balloon-star" style="bottom:2%; right:4%; width:140px; animation-delay:0.2s;"><use href="#starTpl"></use></svg>
     </div>
     <div style="position:relative; width:100px; height:100px; margin:0 auto 10px;">
       <div class="discoball-glow" style="position:absolute; inset:0; z-index:-1;"></div>
