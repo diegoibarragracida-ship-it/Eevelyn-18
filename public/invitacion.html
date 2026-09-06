@@ -75,19 +75,37 @@ p { line-height: 1.65; margin: 0; }
 .seal-overlay .disco-ball { font-size: 3.4rem; position: relative; z-index: 2; cursor: pointer; animation: disco-spin 5s linear infinite; filter: drop-shadow(0 0 14px rgba(255,255,255,0.55)); }
 @keyframes disco-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 .seal-hint { margin-top: 18px; color: rgba(242,243,245,0.6); font-size: 0.78rem; letter-spacing: 0.06em; position: relative; z-index: 2; }
-.star { position: absolute; color: #fff; opacity: 0.85; animation: twinkle 6s ease-in-out infinite; filter: drop-shadow(0 0 3px rgba(255,255,255,0.5)) drop-shadow(2px 4px 3px rgba(0,0,0,0.45)); transform-origin: 50% 0%; }
-@keyframes twinkle {
-  0%,100% { opacity: 0.7; transform: translateY(0) rotate(-4deg); }
-  50% { opacity: 1; transform: translateY(-9px) rotate(4deg); }
+  50% { opacity: 1; transform: translateY(-10px) scale(1.15) rotate(4deg); }
 }
 
 /* --- brillos decorativos repartidos por la página --- */
 .deco-layer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 1; }
-.deco-star { position: absolute; color: #fff; opacity: 0.8; animation: twinkle-float 8s ease-in-out infinite; filter: drop-shadow(0 0 3px rgba(255,255,255,0.45)) drop-shadow(2px 4px 3px rgba(0,0,0,0.4)); transform-origin: 50% 0%; }
-.deco-star.silver { color: #c7cad1; }
-@keyframes twinkle-float {
-  0%,100% { opacity: 0.65; transform: translateY(0) rotate(-5deg); filter: drop-shadow(0 0 2px rgba(255,255,255,0.3)); }
-  50% { opacity: 1; transform: translateY(-14px) rotate(5deg); filter: drop-shadow(0 0 8px rgba(255,255,255,0.7)) drop-shadow(0 0 14px rgba(199,202,209,0.5)); }
+.deco-star-live {
+  position: absolute; transform-origin: 50% 50%;
+  filter: drop-shadow(0 0 5px rgba(220,222,226,0.85)) drop-shadow(0 0 12px rgba(180,183,189,0.45)) drop-shadow(1px 3px 3px rgba(0,0,0,0.4));
+  animation: deco-star-float 4s ease-in-out infinite;
+}
+@keyframes deco-star-float {
+  0%,100% { opacity: 0.85; transform: translateY(0) rotate(-6deg) scale(0.92); }
+  50% { opacity: 1; transform: translateY(-10px) rotate(6deg) scale(1.08); }
+}
+
+/* --- cortina de cristales colgando --- */
+.diamond-fringe { position: relative; display: flex; justify-content: center; align-items: flex-start; gap: 5px; padding: 14px 6px 4px; overflow: hidden; pointer-events: none; }
+.diamond-fringe::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.85) 12%, rgba(255,255,255,0.85) 88%, transparent);
+  box-shadow: 0 0 10px rgba(255,255,255,0.7);
+}
+.diamond-fringe-top { width: calc(100% + 48px); margin: 0 -24px; padding-top: 10px; z-index: 2; }
+.diamond-fringe-flip { transform: scaleY(-1); }
+.fringe-strand { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.fringe-diamond { background: linear-gradient(135deg, #ffffff, #c7cad1 55%, #888b93); transform: rotate(45deg); box-shadow: 0 0 4px rgba(255,255,255,0.75); animation: fringe-sparkle 2.4s ease-in-out infinite; }
+@keyframes fringe-sparkle {
+  0%,100% { opacity: 0.45; filter: brightness(1); }
+  50% { opacity: 1; filter: brightness(1.8); }
+}
+  50% { opacity: 1; transform: translateY(-18px) scale(1.22) rotate(5deg); filter: drop-shadow(0 0 5px rgba(255,255,255,0.9)); }
 }
 .mini-disco { display: inline-block; animation: disco-bob 2.4s ease-in-out infinite; transform-origin: center bottom; }
 @keyframes disco-bob {
@@ -109,6 +127,8 @@ p { line-height: 1.65; margin: 0; }
 
 /* --- brillos (partículas) ambientales, todo el scroll --- */
 .ambient-particles { position: fixed; inset: 0; pointer-events: none; z-index: 3; overflow: hidden; }
+
+/* --- halos de luz que emanan a los dos lados de la invitación --- */
 .particle {
   position: absolute; bottom: -20px; background: #ffffff;
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
@@ -355,6 +375,19 @@ p { line-height: 1.65; margin: 0; }
 .countdown .box span { font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.65); }
 
 .scroll-cue { margin-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 4px; color: rgba(255,255,255,0.6); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; animation: scroll-bounce 2s ease-in-out infinite; }
+
+.quick-links { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 320px; margin: 26px auto 6px; position: relative; z-index: 2; }
+.quick-link {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 13px 16px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.55);
+  background: rgba(255,255,255,0.04); color: var(--white); text-decoration: none;
+  font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+  box-shadow: 0 0 14px rgba(255,255,255,0.15), inset 0 0 10px rgba(255,255,255,0.06);
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+}
+.quick-link:active { transform: scale(0.97); }
+.quick-link:hover { background: rgba(255,255,255,0.1); box-shadow: 0 0 20px rgba(255,255,255,0.3), inset 0 0 12px rgba(255,255,255,0.1); }
+.quick-link .ql-icon { font-size: 1rem; }
 @keyframes scroll-bounce { 0%,100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(6px); opacity: 1; } }
 
 .inv-for { text-align: center; padding: 26px 24px 6px; font-family: 'Parisienne', cursive; font-size: 1.5rem; color: var(--silver-light); }
@@ -428,21 +461,30 @@ p { line-height: 1.65; margin: 0; }
 
 <svg width="0" height="0" style="position:absolute;">
   <defs>
-    <radialGradient id="starMirrorGrad" cx="30%" cy="24%" r="85%">
+    <filter id="puffyStar" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.15" result="blur"/>
+      <feColorMatrix in="blur" mode="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 24 -11" result="puffed"/>
+    </filter>
+    <radialGradient id="starChromeGrad" cx="30%" cy="26%" r="95%">
       <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="22%" stop-color="#f4f5f6"/>
-      <stop offset="50%" stop-color="#b7bac0"/>
-      <stop offset="78%" stop-color="#63666b"/>
-      <stop offset="100%" stop-color="#232427"/>
+      <stop offset="14%" stop-color="#eef0f2"/>
+      <stop offset="26%" stop-color="#9a9da4"/>
+      <stop offset="40%" stop-color="#d9dbdf"/>
+      <stop offset="55%" stop-color="#606267"/>
+      <stop offset="70%" stop-color="#c3c5c9"/>
+      <stop offset="86%" stop-color="#7a7c81"/>
+      <stop offset="100%" stop-color="#45464a"/>
+      <animate attributeName="cx" values="18%;62%;18%" dur="5s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="18%;42%;18%" dur="5s" repeatCount="indefinite"/>
     </radialGradient>
-    <symbol id="starTpl" viewBox="0 0 24 44">
-      <line x1="12" y1="24" x2="12" y2="40" stroke="rgba(255,255,255,0.4)" stroke-width="0.7"/>
-      <circle cx="12" cy="41.2" r="1.1" fill="rgba(255,255,255,0.5)"/>
-      <path d="M12.9,1.9 L16.13,8.45 L23.36,9.5 L18.13,14.6 L19.37,21.8 L12.9,18.4 L6.43,21.8 L7.67,14.6 L2.44,9.5 L9.67,8.45 Z" fill="rgba(10,10,12,0.5)"/>
-      <path d="M12,1 L15.23,7.55 L22.46,8.6 L17.23,13.70 L18.47,20.9 L12,17.5 L5.53,20.9 L6.77,13.70 L1.54,8.6 L8.77,7.55 Z" fill="url(#starMirrorGrad)" stroke="rgba(15,15,18,0.6)" stroke-width="0.5" stroke-linejoin="round"/>
-      <ellipse cx="14.8" cy="15.4" rx="5.2" ry="3.6" fill="rgba(0,0,0,0.3)"/>
-      <ellipse cx="8.1" cy="5.2" rx="3.6" ry="2.1" fill="rgba(255,255,255,0.98)" transform="rotate(-25 8.1 5.2)"/>
-      <circle cx="6.4" cy="3.6" r="1.15" fill="#ffffff"/>
+    <symbol id="starTpl" viewBox="0 0 24 24">
+      <g filter="url(#puffyStar)">
+        <path d="M12,1 L14.91,8.0 L22.46,8.6 L16.71,13.53 L18.47,20.9 L12,16.95 L5.53,20.9 L7.29,13.53 L1.54,8.6 L9.09,8.0 Z" fill="url(#starChromeGrad)"/>
+      </g>
     </symbol>
   </defs>
 </svg>
@@ -455,30 +497,17 @@ p { line-height: 1.65; margin: 0; }
 
 <div class="ambient-particles" id="ambient-particles"></div>
 
-<svg class="deco-star silver balloon-star" style="position:fixed; top:8%; left:4%; width:34px; animation-delay:0.2s; z-index:0;"><use href="#starTpl"></use></svg>
-<svg class="deco-star silver balloon-star" style="position:fixed; top:60%; left:3%; width:27px; animation-delay:1s; z-index:0;"><use href="#starTpl"></use></svg>
-<svg class="deco-star silver balloon-star" style="position:fixed; top:20%; right:4%; width:30px; animation-delay:0.6s; z-index:0;"><use href="#starTpl"></use></svg>
-<svg class="deco-star silver balloon-star" style="position:fixed; top:75%; right:5%; width:23px; animation-delay:1.4s; z-index:0;"><use href="#starTpl"></use></svg>
 
 <div class="seal-overlay" id="seal-overlay">
-  <svg class="star balloon-star" style="top:18%; left:20%; width:27px; animation-delay:0s;"><use href="#starTpl"></use></svg>
-  <svg class="star balloon-star" style="top:70%; left:15%; width:19px; animation-delay:0.6s;"><use href="#starTpl"></use></svg>
-  <svg class="star balloon-star" style="top:25%; left:78%; width:23px; animation-delay:1.1s;"><use href="#starTpl"></use></svg>
-  <svg class="star balloon-star" style="top:75%; left:80%; width:30px; animation-delay:1.6s;"><use href="#starTpl"></use></svg>
-  <svg class="star balloon-star" style="top:45%; left:8%; width:15px; animation-delay:2s;"><use href="#starTpl"></use></svg>
-  <svg class="star balloon-star" style="top:50%; left:88%; width:17px; animation-delay:0.3s;"><use href="#starTpl"></use></svg>
-  <svg class="star balloon-star" style="top:10%; left:50%; width:21px; animation-delay:0.9s;"><use href="#starTpl"></use></svg>
-  <svg class="star balloon-star" style="top:33%; left:38%; width:13px; animation-delay:1.8s;"><use href="#starTpl"></use></svg>
-  <svg class="star balloon-star" style="top:58%; left:62%; width:25px; animation-delay:0.45s;"><use href="#starTpl"></use></svg>
-  <svg class="star balloon-star" style="top:85%; left:45%; width:17px; animation-delay:1.3s;"><use href="#starTpl"></use></svg>
-  <svg class="star balloon-star" style="top:6%; left:8%; width:19px; animation-delay:0.75s;"><use href="#starTpl"></use></svg>
-  <svg class="star balloon-star" style="top:90%; left:12%; width:15px; animation-delay:2.2s;"><use href="#starTpl"></use></svg>
-  <svg class="star balloon-star" style="top:14%; left:65%; width:23px; animation-delay:1.65s;"><use href="#starTpl"></use></svg>
-  <svg class="star balloon-star" style="top:62%; left:92%; width:17px; animation-delay:0.15s;"><use href="#starTpl"></use></svg>
+
+  <div class="diamond-fringe diamond-fringe-top" id="diamond-fringe-seal-top" style="position:absolute; top:0; left:0; right:0; margin:0; width:100%; z-index:2;"></div>
+  <div class="diamond-fringe diamond-fringe-top diamond-fringe-flip" id="diamond-fringe-seal-bottom" style="position:absolute; bottom:0; left:0; right:0; margin:0; width:100%; z-index:2;"></div>
 
   <div class="ambient-particles" id="seal-particles" style="position:absolute;"></div>
 
-  <div class="laser-layer" style="z-index:1;">
+  <div class="deco-layer" style="z-index:1;"></div>
+
+    <div class="laser-layer" style="z-index:1;">
     <div class="laser-beam"></div>
     <div class="laser-beam b2"></div>
     <div class="laser-beam b3"></div>
@@ -537,6 +566,7 @@ p { line-height: 1.65; margin: 0; }
 <div class="card">
 
   <div class="inv-hero">
+    <div class="diamond-fringe diamond-fringe-top" id="diamond-fringe-hero-top"></div>
     <div class="laser-layer">
       <div class="laser-beam"></div>
       <div class="laser-beam b2"></div>
@@ -547,17 +577,12 @@ p { line-height: 1.65; margin: 0; }
       <div class="laser-beam purple"></div>
     </div>
     <div class="deco-layer">
-      <svg class="deco-star silver balloon-star" style="top:32%; left:2%; width:116px; animation-delay:0s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star silver balloon-star" style="top:38%; right:0%; width:136px; animation-delay:0.8s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star silver balloon-star" style="top:52%; left:-2%; width:96px; animation-delay:1.4s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star silver balloon-star" style="top:58%; right:0%; width:120px; animation-delay:0.4s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star silver balloon-star" style="top:70%; left:0%; width:128px; animation-delay:1s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star silver balloon-star" style="top:76%; right:-2%; width:100px; animation-delay:0.6s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star silver balloon-star" style="bottom:8%; left:4%; width:124px; animation-delay:1.2s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star silver balloon-star" style="bottom:2%; right:4%; width:140px; animation-delay:0.2s;"><use href="#starTpl"></use></svg>
     </div>
-    <div style="position:relative; width:100px; height:100px; margin:0 auto 10px;">
-      <div class="discoball-glow" style="position:absolute; inset:0; z-index:-1;"></div>
+    <div class="discoball" style="position:relative; width:100px; height:100px; margin:0 auto 10px;">
+      <div class="discoball-glow"></div>
+      <div class="ray" style="transform:rotate(-65deg);"></div>
+      <div class="ray pink" style="transform:rotate(-15deg);"></div>
+      <div class="ray blue" style="transform:rotate(40deg);"></div>
       <div class="ball3d-scene" style="width:100px; height:100px;">
         <div class="ball3d" id="ball3d-hero"></div>
       </div>
@@ -569,14 +594,12 @@ p { line-height: 1.65; margin: 0; }
     <div class="fullname">Evelyn Aracely Sánchez Baylon</div>
 
     <div class="discoball" style="position:relative; width:190px; height:190px; margin:0 auto 14px;">
-      <div class="discoball-glow" style="position:absolute; inset:-14px; z-index:-1;"></div>
+      <div class="discoball-glow"></div>
       <div class="ray" style="transform:rotate(-65deg);"></div>
       <div class="ray pink" style="transform:rotate(-15deg);"></div>
       <div class="ray blue" style="transform:rotate(40deg);"></div>
-      <div class="ray purple" style="transform:rotate(90deg);"></div>
-      <div class="ray green" style="transform:rotate(140deg);"></div>
       <div class="ball3d-scene" style="width:190px; height:190px;">
-        <div class="ball3d" id="ball3d-photo" style="animation-duration:4.2s;"></div>
+        <div class="ball3d" id="ball3d-photo"></div>
       </div>
     </div>
 
@@ -611,6 +634,21 @@ p { line-height: 1.65; margin: 0; }
       <div class="box led-card on-dark"><strong id="cd-sec">--</strong><span>Seg</span></div>
     </div>
 
+    <div class="quick-links">
+      <a href="#location-section" class="quick-link">
+        <span class="ql-icon">📍</span> UBICACIÓN DE LA FIESTA
+      </a>
+      <a href="#rsvp-section" class="quick-link">
+        <span class="ql-icon">✅</span> CONFIRMAR ASISTENCIA
+      </a>
+      <a href="#gift-section" class="quick-link">
+        <span class="ql-icon">🎁</span> SUGERENCIAS DE REGALOS
+      </a>
+      <a href="#manual-section" class="quick-link">
+        <span class="ql-icon">📋</span> MANUAL DEL INVITADO
+      </a>
+    </div>
+
     <div class="scroll-cue">Desliza para ver más<br/>↓</div>
   </div>
 
@@ -618,8 +656,6 @@ p { line-height: 1.65; margin: 0; }
 
   <div class="section-block reveal">
     <div class="deco-layer">
-      <svg class="deco-star balloon-star" style="top:4%; left:6%; width:21px; animation-delay:0.2s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star balloon-star" style="top:8%; right:8%; width:17px; animation-delay:1s;"><use href="#starTpl"></use></svg>
     </div>
     <span class="eyebrow">Un sueño hecho realidad ✨</span>
     <h2>Dieciocho años de brillo</h2>
@@ -641,8 +677,17 @@ p { line-height: 1.65; margin: 0; }
 
   <div class="section-block reveal" style="padding-top:0;">
     <div class="deco-layer">
-      <svg class="deco-star balloon-star" style="top:2%; left:10%; width:19px; animation-delay:0.5s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star balloon-star" style="top:6%; right:12%; width:25px; animation-delay:1.2s;"><use href="#starTpl"></use></svg>
+    </div>
+    <span class="eyebrow">Con todo su amor</span>
+    <h2>Mis papás</h2>
+    <div class="padrino-single led-card">
+      <div class="role">Padres</div>
+      <div class="pname">Nombre del Papá<br/>&amp;<br/>Nombre de la Mamá</div>
+    </div>
+  </div>
+
+  <div class="section-block reveal" style="padding-top:0;">
+    <div class="deco-layer">
     </div>
     <span class="eyebrow">Con cariño y gratitud</span>
     <h2>
@@ -682,8 +727,6 @@ p { line-height: 1.65; margin: 0; }
       <div class="laser-beam pink"></div>
     </div>
     <div class="deco-layer">
-      <svg class="deco-star balloon-star" style="top:3%; left:8%; width:17px; animation-delay:0.3s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star balloon-star" style="top:5%; right:10%; width:23px; animation-delay:0.9s;"><use href="#starTpl"></use></svg>
     </div>
     <div class="mini-disco-station" style="bottom:6%; left:4%; width:38px; height:38px;">
       <div class="discoball-glow"></div>
@@ -718,7 +761,7 @@ p { line-height: 1.65; margin: 0; }
     </div>
     <div class="timeline-note" style="font-weight:700;">🖤 Horarios sujetos a pequeños ajustes — ¡lo importante es que no falte tu brillo! ✨</div>
 
-    <div class="place-card led-card">
+    <div class="place-card led-card" id="location-section">
       <h3>Banquetes Quinta Real Trinidad</h3>
       <p>Prol. de Nte. 10 #528, Col. El Espinal<br/>94310 Orizaba, Veracruz</p>
       <div class="hours">
@@ -730,17 +773,25 @@ p { line-height: 1.65; margin: 0; }
   </div>
 
   <div class="section-block reveal" style="padding-top:0;">
-    <div class="gift-card led-card">
+    <div class="gift-card led-card" id="gift-section">
       <h3 style="color:var(--silver-light); font-size:1.02rem; margin-bottom:8px;"><span class="mini-disco" style="font-size:0.9em;">✨</span> Lluvia de sobres</h3>
       <p>Tu presencia es el regalo más importante para mí. Si deseas obsequiarme algo, ten tu sobre listo, ¡una lluvia de sobres será muy apreciada! 🖤</p>
     </div>
   </div>
 
-  <div class="inv-rsvp reveal">
+  <div class="section-block reveal" style="padding-top:0;">
+    <!-- ⚠️ Diego: ajusta el código de vestimenta y demás indicaciones a lo que decida Evelyn -->
+    <div class="gift-card led-card" id="manual-section">
+      <h3 style="color:var(--silver-light); font-size:1.02rem; margin-bottom:8px;"><span class="mini-disco" style="font-size:0.9em;">📋</span> Manual del invitado</h3>
+      <p>✨ Código de vestimenta: Elegante / Gala plateado<br/>
+      🕗 Favor de llegar puntual a las 8:00 pm<br/>
+      🚗 Contamos con estacionamiento dentro del salón<br/>
+      🎶 ¡Ven con toda la energía para bailar toda la noche!</p>
+    </div>
+  </div>
+
+  <div class="inv-rsvp reveal" id="rsvp-section">
     <div class="deco-layer">
-      <svg class="deco-star silver balloon-star" style="top:6%; left:8%; width:23px; animation-delay:0.2s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star silver balloon-star" style="top:10%; right:10%; width:27px; animation-delay:1s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star silver balloon-star" style="bottom:10%; left:14%; width:17px; animation-delay:1.6s;"><use href="#starTpl"></use></svg>
     </div>
     <span class="eyebrow">RSVP</span>
     <h2>
@@ -782,8 +833,6 @@ p { line-height: 1.65; margin: 0; }
 
   <div class="inv-pass-wrap reveal" style="position:relative;">
     <div class="deco-layer">
-      <svg class="deco-star balloon-star" style="top:2%; left:10%; width:21px; animation-delay:0.4s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star balloon-star" style="top:4%; right:12%; width:17px; animation-delay:1.1s;"><use href="#starTpl"></use></svg>
     </div>
     <div class="inv-pass led-card on-dark">
       <div class="pass-label"><span class="mini-disco" style="font-size:0.9em;">🪩</span> Tu pase de entrada</div>
@@ -800,6 +849,8 @@ p { line-height: 1.65; margin: 0; }
       <div class="ball3d-scene" style="width:36px; height:36px;"><div class="ball3d" id="ball3d-mini-4"></div></div>
     </div>
   </div>
+
+  <div class="diamond-fringe" id="diamond-fringe-bottom"></div>
 
   <div class="inv-footer">
     Invitación digital para los 18 años de Evelyn
@@ -842,6 +893,58 @@ buildBall3D('ball3d-mini-1', 16);
 buildBall3D('ball3d-mini-2', 17);
 buildBall3D('ball3d-mini-3', 15);
 buildBall3D('ball3d-mini-4', 16);
+
+function buildDiamondFringe(containerId, strandCount, minCount, maxCount) {
+  const wrap = document.getElementById(containerId);
+  if (!wrap) return;
+  for (let i = 0; i < strandCount; i++) {
+    const strand = document.createElement('div');
+    strand.className = 'fringe-strand';
+    const count = minCount + Math.floor(Math.random() * (maxCount - minCount + 1));
+    const topOffset = Math.random() * 16;
+    strand.style.marginTop = topOffset + 'px';
+    for (let j = 0; j < count; j++) {
+      const d = document.createElement('div');
+      d.className = 'fringe-diamond';
+      const size = Math.max(4, 9 - j * 0.55 + Math.random() * 2);
+      d.style.width = size + 'px';
+      d.style.height = size + 'px';
+      d.style.opacity = Math.max(0.35, 1 - j * 0.09);
+      d.style.animationDelay = (Math.random() * 2.4) + 's';
+      strand.appendChild(d);
+    }
+    wrap.appendChild(strand);
+  }
+}
+buildDiamondFringe('diamond-fringe-hero-top', 34, 5, 11);
+buildDiamondFringe('diamond-fringe-bottom', 34, 5, 11);
+buildDiamondFringe('diamond-fringe-seal-top', 26, 4, 9);
+buildDiamondFringe('diamond-fringe-seal-bottom', 26, 4, 9);
+
+function buildDecoStars(containerId, count) {
+  const layer = document.getElementById(containerId);
+  if (!layer) return;
+  for (let i = 0; i < count; i++) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'deco-star-live');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+    use.setAttribute('href', '#starTpl');
+    svg.appendChild(use);
+    const size = 14 + Math.random() * 22;
+    svg.style.width = size + 'px';
+    svg.style.height = size + 'px';
+    svg.style.top = (Math.random() * 88) + '%';
+    svg.style.left = (Math.random() * 88) + '%';
+    svg.style.animationDelay = (Math.random() * 3.4) + 's';
+    svg.style.animationDuration = (3 + Math.random() * 2.4) + 's';
+    layer.appendChild(svg);
+  }
+}
+document.querySelectorAll('.deco-layer').forEach((layer, i) => {
+  if (!layer.id) layer.id = 'deco-layer-auto-' + i;
+  buildDecoStars(layer.id, 6);
+});
 function openInvitation() {
   document.getElementById('seal-overlay').classList.add('hidden');
   starConfetti();
