@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Evelyn — Mis 18 años · Disco Glam</title>
+<title>Evelyn — Mis 18 años · Fiesta Disco</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -338,10 +338,10 @@ p { line-height: 1.65; margin: 0; }
 .fullname { font-size: 0.96rem; color: rgba(255,255,255,0.72); letter-spacing: 0.05em; margin-top: 10px; }
 .venue-chip { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; padding: 7px 16px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.3); font-size: 0.78rem; color: var(--silver-light); }
 
-.hero-photo-wrap { position: relative; width: 240px; height: 240px; margin: 26px auto 8px; }
-.hero-photo-ring { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.55); box-shadow: 0 0 22px rgba(255,255,255,0.3), inset 0 0 14px rgba(255,255,255,0.15); animation: ring-pulse 3.2s ease-in-out infinite; pointer-events: none; }
+.hero-photo-wrap { position: relative; width: calc(100% + 48px); height: 320px; margin: 26px -24px 8px; }
+.hero-photo-ring { position: absolute; inset: 0; border-radius: 0; border: 1.5px solid rgba(255,255,255,0.55); box-shadow: 0 0 22px rgba(255,255,255,0.3), inset 0 0 14px rgba(255,255,255,0.15); animation: ring-pulse 3.2s ease-in-out infinite; pointer-events: none; }
 @keyframes ring-pulse { 0%,100% { box-shadow: 0 0 16px rgba(255,255,255,0.22), inset 0 0 10px rgba(255,255,255,0.1); } 50% { box-shadow: 0 0 30px rgba(255,255,255,0.45), inset 0 0 18px rgba(255,255,255,0.2); } }
-.hero-photo { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--white); display: block; }
+.hero-photo { width: 100%; height: 100%; border-radius: 0; object-fit: cover; border: 3px solid var(--white); display: block; }
 
 .ornament { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 16px 0 12px; }
 .ornament .line { height: 1px; width: 46px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6)); }
@@ -392,13 +392,6 @@ p { line-height: 1.65; margin: 0; }
 
 .gift-card { margin-top: 4px; background: var(--panel); border: 1px dashed var(--silver-dark); border-radius: 16px; padding: 18px; text-align: left; }
 .gift-card p { color: var(--ink-soft); font-size: 0.95rem; }
-
-.dresscode-card { margin-top: 4px; background: var(--panel); border: 1px solid var(--cream-dark); border-radius: 16px; padding: 20px; text-align: left; }
-.dresscode-card p { color: var(--ink-soft); font-size: 0.95rem; }
-.dresscode-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 16px; }
-.dresscode-tags span { display: inline-block; padding: 6px 14px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.3); font-size: 0.78rem; color: var(--silver-light); }
-.dresscode-warning { font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.03em; line-height: 1.5; color: var(--white); text-align: center; text-transform: uppercase; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.35); border-radius: 14px; padding: 16px; margin: 8px 0 14px; text-shadow: 0 0 14px rgba(255,255,255,0.3); }
-.dresscode-rule { text-align: center; font-size: 0.95rem; color: var(--silver-light); font-style: italic; }
 
 .inv-rsvp { position: relative; padding: 34px 24px 10px; text-align: center; }
 .inv-rsvp .sub { color: var(--ink-soft); font-size: 0.94rem; margin: 6px 0 18px; }
@@ -497,7 +490,7 @@ p { line-height: 1.65; margin: 0; }
   </div>
 
   <div class="script">Mis 18 años</div>
-  <div class="theme-tag">🖤 Tema · Disco Glam</div>
+  <div class="theme-tag">🖤 Tema · Bola de disco</div>
   <div style="display:flex; align-items:center; justify-content:center; gap:6px; position:relative; z-index:2;">
     <span class="crystal-wrap" style="width:34px; height:42px;">
       <div class="crystal-ray" style="transform:translateX(-50%) rotate(-20deg);"></div>
@@ -536,7 +529,7 @@ p { line-height: 1.65; margin: 0; }
       <div class="crystal-glint"></div>
     </span>
   </div>
-  <div class="neon-sign">¡Disco Glam!</div>
+  <div class="neon-sign">¡Disco Night!</div>
   <div class="seal-hint">Toca la bola de disco para abrir tu invitación</div>
 </div>
 
@@ -568,7 +561,7 @@ p { line-height: 1.65; margin: 0; }
         <div class="ball3d" id="ball3d-hero"></div>
       </div>
     </div>
-    <div class="theme-badge">🖤 Tema · Disco Glam</div><br/>
+    <div class="theme-badge">🖤 Tema · Bola de disco</div><br/>
     <span class="eyebrow">Mis dieciocho años</span>
     <h1><span class="mini-disco">🪩</span> <span class="shine-text">Evelyn</span></h1>
     <div class="hero-tagline">✨ Una noche de luces, brillo y buena música ✨</div>
@@ -610,7 +603,7 @@ p { line-height: 1.65; margin: 0; }
       </span>
       <span class="line r"></span>
     </div>
-    <div class="datebox">10 · Octubre · 2026 · 6:00 pm</div>
+    <div class="datebox">10 · Octubre · 2026 · 8:00 pm</div>
     <div class="countdown" id="countdown">
       <div class="box led-card on-dark"><strong id="cd-days">--</strong><span>Días</span></div>
       <div class="box led-card on-dark"><strong id="cd-hours">--</strong><span>Hrs</span></div>
@@ -643,32 +636,6 @@ p { line-height: 1.65; margin: 0; }
       <img class="tall" src="img/foto1-nina-vestido.jpg" alt="Evelyn de niña" loading="lazy" />
       <img src="img/foto2-bebe.jpg" alt="Evelyn de bebé" loading="lazy" />
       <img src="img/foto3-nina-sonrisa.jpg" alt="Evelyn sonriendo de niña" loading="lazy" />
-    </div>
-  </div>
-
-  <div class="section-block reveal" style="padding-top:0;">
-    <div class="deco-layer">
-      <svg class="deco-star balloon-star" style="top:2%; left:10%; width:19px; animation-delay:0.3s;"><use href="#starTpl"></use></svg>
-      <svg class="deco-star balloon-star" style="top:6%; right:12%; width:25px; animation-delay:1s;"><use href="#starTpl"></use></svg>
-    </div>
-    <span class="eyebrow">Con la bendición de</span>
-    <h2>
-      <span class="crystal-wrap" style="width:22px; height:28px;">
-        <div class="crystal-ray" style="height:16px; transform:translateX(-50%) rotate(-14deg);"></div>
-        <div class="crystal-ray" style="height:16px; transform:translateX(-50%) rotate(10deg); animation-delay:0.4s;"></div>
-        <svg viewBox="0 0 60 70" xmlns="http://www.w3.org/2000/svg">
-          <defs><linearGradient id="crystalGradPapas" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#ffffff"/><stop offset="50%" stop-color="#c7cad1"/><stop offset="100%" stop-color="#888b93"/>
-          </linearGradient></defs>
-          <polygon points="30,2 50,22 42,68 18,68 10,22" fill="url(#crystalGradPapas)" stroke="#1a1b1f" stroke-width="1" stroke-opacity="0.35"/>
-          <polygon points="30,2 50,22 30,30 10,22" fill="#ffffff" fill-opacity="0.5"/>
-        </svg>
-        <div class="crystal-glint"></div>
-      </span>
-      Mis papás
-    </h2>
-    <div class="padrino-single led-card">
-      <div class="role">Papás</div>      <div class="pname">Irving Sánchez Hernández<br/>&amp;<br/>Ma. de los Ángeles Baylon Velez</div>
     </div>
   </div>
 
@@ -726,31 +693,27 @@ p { line-height: 1.65; margin: 0; }
       <div class="ball3d-scene" style="width:38px; height:38px;"><div class="ball3d" id="ball3d-mini-2"></div></div>
     </div>
     <span class="eyebrow">Itinerario</span>
-    <h2>La noche Disco Glam</h2>
+    <h2>La noche disco</h2>
     <div class="timeline">
       <div class="timeline-item">
         <div class="dotcol"><div class="tdot"></div><div class="tline"></div></div>
-        <div class="tcontent"><div class="ttime">6:00 pm</div><div class="tlabel">Recepción</div></div>
+        <div class="tcontent"><div class="ttime">8:00 pm</div><div class="tlabel">Bienvenida y coctel</div></div>
       </div>
       <div class="timeline-item">
         <div class="dotcol"><div class="tdot"></div><div class="tline"></div></div>
-        <div class="tcontent"><div class="ttime">7:30 pm</div><div class="tlabel">Entrada triunfal de Eve</div></div>
+        <div class="tcontent"><div class="ttime">8:30 pm</div><div class="tlabel">Brindis y dedicación de palabras</div></div>
       </div>
       <div class="timeline-item">
         <div class="dotcol"><div class="tdot"></div><div class="tline"></div></div>
-        <div class="tcontent"><div class="ttime">7:40 pm</div><div class="tlabel">Vals familiar</div></div>
-      </div>
-      <div class="timeline-item">
-        <div class="dotcol"><div class="tdot"></div><div class="tline"></div></div>
-        <div class="tcontent"><div class="ttime">8:30 pm</div><div class="tlabel">Cena</div></div>
+        <div class="tcontent"><div class="ttime">9:00 pm</div><div class="tlabel">Cena</div></div>
       </div>
       <div class="timeline-item dance-item" id="dance-item">
         <div class="dotcol"><div class="tdot"></div><div class="tline"></div></div>
-        <div class="tcontent"><div class="ttime">9:20 pm</div><div class="tlabel"><span class="mini-disco" id="dance-disco" style="font-size:0.9em;">🪩</span> ¡Pista abierta! DJ en vivo</div></div>
+        <div class="tcontent"><div class="ttime">9:30 pm</div><div class="tlabel"><span class="mini-disco" id="dance-disco" style="font-size:0.9em;">🪩</span> ¡Pista abierta! DJ en vivo</div></div>
       </div>
       <div class="timeline-item">
         <div class="dotcol"><div class="tdot"></div></div>
-        <div class="tcontent"><div class="ttime">—</div><div class="tlabel">La noche apenas comienza, no te pierdas las sorpresas que faltan ✨</div></div>
+        <div class="tcontent"><div class="ttime">—</div><div class="tlabel">La fiesta sigue hasta el final ✨</div></div>
       </div>
     </div>
     <div class="timeline-note" style="font-weight:700;">🖤 Horarios sujetos a pequeños ajustes — ¡lo importante es que no falte tu brillo! ✨</div>
@@ -759,7 +722,7 @@ p { line-height: 1.65; margin: 0; }
       <h3>Banquetes Quinta Real Trinidad</h3>
       <p>Prol. de Nte. 10 #528, Col. El Espinal<br/>94310 Orizaba, Veracruz</p>
       <div class="hours">
-        <span>🕕 Recepción: 6:00 pm</span>
+        <span>🕗 Entrada: 8:00 pm</span>
       </div>
       <iframe src="https://www.google.com/maps?q=Banquetes+Quinta+Real+Trinidad,18.8685159,-97.1069697&output=embed" loading="lazy" allowfullscreen></iframe>
       <a class="mapbtn" href="https://maps.app.goo.gl/ycg26n6e8gDoz9ud9?g_st=aw" target="_blank" rel="noopener">📍 Cómo llegar</a>
@@ -770,23 +733,6 @@ p { line-height: 1.65; margin: 0; }
     <div class="gift-card led-card">
       <h3 style="color:var(--silver-light); font-size:1.02rem; margin-bottom:8px;"><span class="mini-disco" style="font-size:0.9em;">✨</span> Lluvia de sobres</h3>
       <p>Tu presencia es el regalo más importante para mí. Si deseas obsequiarme algo, ten tu sobre listo, ¡una lluvia de sobres será muy apreciada! 🖤</p>
-    </div>
-  </div>
-
-  <div class="section-block reveal" style="padding-top:0;">
-    <span class="eyebrow">Manual de invitados</span>
-    <h2>Código de vestimenta: Gala</h2>
-    <div class="dresscode-card led-card">
-      <p>Ven vestida/o para brillar toda la noche ✨</p>
-      <div class="dresscode-tags">
-        <span>✨ Brillos</span>
-        <span>🎇 Lentejuelas</span>
-        <span>🌟 Satinados</span>
-        <span>⚙️ Prendas metálicas</span>
-        <span>🎨 Colores vibrantes</span>
-      </div>
-      <div class="dresscode-warning">Evitar ropa demasiado casual o deportiva</div>
-      <p class="dresscode-rule">🪩 Regla principal: entre más brillos, mejor</p>
     </div>
   </div>
 
@@ -819,7 +765,6 @@ p { line-height: 1.65; margin: 0; }
       <div class="ball3d-scene" style="width:34px; height:34px;"><div class="ball3d" id="ball3d-mini-3"></div></div>
     </div>
     <p class="sub">Confírmame tu asistencia, tu pase es válido para hasta 2 personas.</p>
-    <p class="sub" style="margin-top:-6px; color: var(--silver-light); font-size:0.82rem;">🕗 Por favor confirma antes del <strong>27 de septiembre</strong></p>
     <div class="rsvp-form">
       <select id="rsvp-count">
         <option value="1">Voy solo/a (1 persona)</option>
@@ -858,7 +803,7 @@ p { line-height: 1.65; margin: 0; }
 
   <div class="inv-footer">
     Invitación digital para los 18 años de Evelyn
-    <div class="pkg-tag">🖤 Tema · Disco Glam</div>
+    <div class="pkg-tag">🖤 Tema · Bola de disco</div>
   </div>
 </div>
 
@@ -1060,7 +1005,7 @@ document.getElementById('rsvp-count').addEventListener('change', function() {
 });
 
 /* ---------------- CUENTA REGRESIVA ---------------- */
-const eventDate = new Date('2026-10-10T18:00:00');
+const eventDate = new Date('2026-10-10T20:00:00');
 function updateCountdown() {
   const now = new Date();
   let diff = eventDate - now;

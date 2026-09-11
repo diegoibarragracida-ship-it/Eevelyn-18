@@ -90,20 +90,6 @@ th { color: var(--ink-soft); font-weight: 600; text-transform: uppercase; font-s
   </div>
 
   <div class="panel">
-    <h2>📋➕ Agregar varios de una vez</h2>
-    <p style="color:var(--ink-soft); font-size:0.85rem; margin:0 0 10px;">
-      Pega tu lista, un invitado por línea. Formato: <code>Nombre, pases</code>
-      (si no pones pases, se usan 2 por defecto). Ejemplo:<br/>
-      <em>María López, 2<br/>Juan Pérez<br/>Familia Ramírez, 4</em>
-    </p>
-    <textarea id="f-bulk" rows="5" style="width:100%; padding:10px 12px; border-radius:9px; border:1px solid var(--cream-dark); font-family:inherit; font-size:0.95rem;" placeholder="Nombre 1, 2&#10;Nombre 2, 4&#10;Nombre 3"></textarea>
-    <div style="margin-top:10px;">
-      <button onclick="addBulk()" style="padding:10px 20px; border-radius:9px; border:none; background:var(--plum); color:var(--white); font-family:inherit; font-size:0.95rem; cursor:pointer;">Agregar todos y generar links</button>
-    </div>
-    <div class="status-msg" id="bulk-msg"></div>
-  </div>
-
-  <div class="panel">
     <div class="toolbar">
       <h2 style="margin:0;">📋 Lista de invitados</h2>
       <div>
@@ -146,18 +132,13 @@ function renderTable() {
   document.getElementById('empty-msg').style.display = guests.length ? 'none' : 'block';
   guests.slice().reverse().forEach(g => {
     const link = `${window.location.origin}/invitacion.html?id=${g.id}`;
-    const waText = encodeURIComponent(`¡Hola ${g.nombre}! 🪩✨ Aquí está tu invitación personal a los 18 años de Evelyn: ${link}`);
-    const waShare = `https://wa.me/?text=${waText}`;
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${g.nombre}</td>
       <td>${g.pases}</td>
       <td><span class="badge ${g.estado}">${g.estado.replace('_',' ')}</span></td>
       <td>${g.checkedIn ? '<span class="checkin-yes">✔ Sí</span>' : '<span class="checkin-no">—</span>'}</td>
-      <td>
-        <button class="link-copy" onclick="copyLink('${link}', this)">Copiar link</button><br/>
-        <a class="link-copy" href="${waShare}" target="_blank" rel="noopener">Compartir WhatsApp</a>
-      </td>
+      <td><button class="link-copy" onclick="copyLink('${link}', this)">Copiar link</button></td>
       <td class="row-actions">
         <button class="del" onclick="delGuest('${g.id}')">Eliminar</button>
       </td>
@@ -189,41 +170,6 @@ async function addGuest() {
   msg.className = 'status-msg ok';
   document.getElementById('f-nombre').value = '';
   document.getElementById('f-pases').value = '2';
-  loadAll();
-}
-
-async function addBulk() {
-  const raw = document.getElementById('f-bulk').value;
-  const msg = document.getElementById('bulk-msg');
-  const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
-  if (!lines.length) {
-    msg.textContent = 'Pega al menos un invitado.';
-    msg.className = 'status-msg err';
-    return;
-  }
-  const guestsToAdd = lines.map(line => {
-    const parts = line.split(',');
-    const nombre = parts[0].trim();
-    const pases = parts[1] ? Number(parts[1].trim()) : 2;
-    return { nombre, pases: pases || 2 };
-  }).filter(g => g.nombre);
-
-  msg.textContent = 'Agregando invitados...';
-  msg.className = 'status-msg';
-
-  const res = await fetch(`${API}/api/guests/bulk`, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ guests: guestsToAdd })
-  });
-  if (!res.ok) {
-    msg.textContent = 'Ocurrió un error al agregar la lista.';
-    msg.className = 'status-msg err';
-    return;
-  }
-  const created = await res.json();
-  msg.textContent = `¡Listo! Se generaron ${created.length} links nuevos. Bájale para copiarlos o compartirlos por WhatsApp.`;
-  msg.className = 'status-msg ok';
-  document.getElementById('f-bulk').value = '';
   loadAll();
 }
 
