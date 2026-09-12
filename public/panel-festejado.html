@@ -90,17 +90,120 @@ th { color: var(--ink-soft); font-weight: 600; text-transform: uppercase; font-s
   </div>
 
   <div class="panel">
-    <h2>📋➕ Agregar varios de una vez</h2>
-    <p style="color:var(--ink-soft); font-size:0.85rem; margin:0 0 10px;">
-      Pega tu lista, un invitado por línea. Formato: <code>Nombre, pases</code>
-      (si no pones pases, se usan 2 por defecto). Ejemplo:<br/>
-      <em>María López, 2<br/>Juan Pérez<br/>Familia Ramírez, 4</em>
-    </p>
-    <textarea id="f-bulk" rows="5" style="width:100%; padding:10px 12px; border-radius:9px; border:1px solid var(--cream-dark); font-family:inherit; font-size:0.95rem;" placeholder="Nombre 1, 2&#10;Nombre 2, 4&#10;Nombre 3"></textarea>
-    <div style="margin-top:10px;">
-      <button onclick="addBulk()" style="padding:10px 20px; border-radius:9px; border:none; background:var(--plum); color:var(--white); font-family:inherit; font-size:0.95rem; cursor:pointer;">Agregar todos y generar links</button>
+    <h2>📥 Importar lista completa</h2>
+    <p style="font-size:0.85rem; color:var(--ink-soft); margin:0 0 10px;">Una línea por invitado, formato <code>Nombre, número de pases</code>. Ya viene precargada tu lista — solo revisa y da clic en "Importar todos".</p>
+    <textarea id="bulk-textarea" rows="8" style="width:100%; padding:10px 12px; border-radius:9px; border:1px solid var(--cream-dark); font-family:inherit; font-size:0.85rem; resize:vertical;" placeholder="Yadira Sanchez Hernandez, 3&#10;Araceli Hernandez Garcia, 4&#10;...">Yadira Sanchez Hernandez, 3
+Araceli Hernandez Garcia, 4
+Celia Velez Cervantes, 1
+Raymundo Vaylon Romero, 5
+Estefani Ronquillo Velazquez, 3
+Adrian Baylon Velez, 4
+Diana Mayumi Lopez Luquez, 5
+Luis Angel Lopez Luquez, 4
+Gonzalo Lopez Luquez, 3
+Antelmo Lopez Regules, 3
+Agustin Ginés Lara, 4
+Jose Alfredo Garcia Oropeza, 5
+Jaime Flores de la Vega, 3
+Carolina Ramires Rosas, 3
+Erick Hernandez Garcia, 2
+Octavio Hernandez Garcia, 2
+Erika Nayit Hernandez Ramirez, 4
+Virginia Larissa Hernandez Lopez, 4
+Omar Blanco Perez, 4
+Flor Estefani Hernandez Lopez, 4
+Adrian Garcia Vera, 1
+Mario Garcia Vera, 1
+Rafael Garcia Vera, 1
+Aide Garcia Breton, 4
+Angelina Hernandez Martinez, 3
+Ma. Elena Cruz Hernandez, 1
+Leticia Cruz Hernandez, 5
+Elvira Bermudez Cruz, 4
+Alejandra Bermudez Cruz, 4
+Joaquin Cruz Hernandez, 4
+Adela Flores Soriano, 2
+Andrea Roque Flores, 3
+Lupe Flores Soriano, 2
+Rufina Romero Flores, 3
+Lili Oseguera Romero, 3
+Ma. Angeles Hernandez, 3
+Andrea Garcia Regules, 1
+Emilia Rodriguez Soriano, 3
+Joel Luna, 2
+Cecilia Vasquez, 5
+Familia Zanabria, 3
+Familia Sostaita, 3
+Abigail Diaz, 1
+Zoe Diaz, 2
+Estrella Gutierrez, 1
+Mayte Ravelo, 1
+Angelica Cruz, 1
+Belain Garcia, 1
+Daira de la Cruz, 1
+Rayo Lerin, 1
+Jimena Martinez, 1
+Julissa Alcantara, 1
+Itzel Castro, 1
+Itzel Torres, 1
+Victoria Velazquez, 1
+Kamila Torres, 1
+Sara Montiel, 1
+Jennifer Peña, 1
+Ivanna Mendez, 1
+Ivana Ochoa, 1
+Ivana Gomez, 1
+Ana Pau Rodriguez, 1
+Miranda Torres, 1
+Valeria Rodriguez, 1
+Majo Estevez, 1
+Alejandra Jimenez, 1
+Naomi Soto, 1
+Nina Garcia, 1
+Vladimir Gonzales, 1
+Renata Godinez, 1
+Jessica Alva, 1
+Adolfo, 1
+Irvin Cruz, 1
+Alexander Ronquillo, 1
+Dafne Conde, 1
+Aldo Rosas, 1
+Rodrigo Gomez, 2
+Emylieth Castillo, 2
+Lian Santana, 1
+Emily Martinez, 1
+Jessica Jimenez, 1
+Melly Merino, 1
+Ingrid Cano, 1
+Naomi Polo, 1
+Victoria Tamburrino, 1
+Paula Quintero, 1
+Marcos Galvez, 1
+Ary Conde, 1
+Majo Mancera, 1
+Benjamin Rodriguez, 1
+Hector Nava, 1
+Luz Velasquez, 1
+Victor Viveros, 1
+Alexis Anguiano, 2
+Mario Santos, 1
+Hiram Ramirez, 1
+Fernando Gutierrez, 1
+David Sanchez, 1
+Alan Rosas, 1
+Pablo Guzman, 1
+Dragan Olivos, 1
+Eduardo Sangabriel, 1
+Diego Martinez, 1
+Lupita Santibañez, 1
+Arely Sarmiento, 1
+Ximena Cruz, 1
+Alvaro Bermudez, 1
+Sergio Rojas, 1</textarea>
+    <div style="margin-top:10px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+      <button onclick="importBulk()" style="padding:10px 20px; border-radius:9px; border:none; background:var(--plum); color:var(--white); font-family:inherit; font-size:0.95rem; cursor:pointer;">Importar todos</button>
+      <span id="bulk-status" class="status-msg" style="margin-top:0;"></span>
     </div>
-    <div class="status-msg" id="bulk-msg"></div>
   </div>
 
   <div class="panel">
@@ -109,6 +212,7 @@ th { color: var(--ink-soft); font-weight: 600; text-transform: uppercase; font-s
       <div>
         <button onclick="loadAll()">🔄 Actualizar</button>
         <button onclick="exportCSV()">⬇️ Exportar CSV</button>
+        <button onclick="copyAllLinks()">🔗 Copiar todos los links</button>
       </div>
     </div>
     <table id="guest-table">
@@ -146,18 +250,13 @@ function renderTable() {
   document.getElementById('empty-msg').style.display = guests.length ? 'none' : 'block';
   guests.slice().reverse().forEach(g => {
     const link = `${window.location.origin}/invitacion.html?id=${g.id}`;
-    const waText = encodeURIComponent(`¡Hola ${g.nombre}! 🪩✨ Aquí está tu invitación personal a los 18 años de Evelyn: ${link}`);
-    const waShare = `https://wa.me/?text=${waText}`;
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${g.nombre}</td>
       <td>${g.pases}</td>
       <td><span class="badge ${g.estado}">${g.estado.replace('_',' ')}</span></td>
       <td>${g.checkedIn ? '<span class="checkin-yes">✔ Sí</span>' : '<span class="checkin-no">—</span>'}</td>
-      <td>
-        <button class="link-copy" onclick="copyLink('${link}', this)">Copiar link</button><br/>
-        <a class="link-copy" href="${waShare}" target="_blank" rel="noopener">Compartir WhatsApp</a>
-      </td>
+      <td><button class="link-copy" onclick="copyLink('${link}', this)">Copiar link</button></td>
       <td class="row-actions">
         <button class="del" onclick="delGuest('${g.id}')">Eliminar</button>
       </td>
@@ -192,41 +291,6 @@ async function addGuest() {
   loadAll();
 }
 
-async function addBulk() {
-  const raw = document.getElementById('f-bulk').value;
-  const msg = document.getElementById('bulk-msg');
-  const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
-  if (!lines.length) {
-    msg.textContent = 'Pega al menos un invitado.';
-    msg.className = 'status-msg err';
-    return;
-  }
-  const guestsToAdd = lines.map(line => {
-    const parts = line.split(',');
-    const nombre = parts[0].trim();
-    const pases = parts[1] ? Number(parts[1].trim()) : 2;
-    return { nombre, pases: pases || 2 };
-  }).filter(g => g.nombre);
-
-  msg.textContent = 'Agregando invitados...';
-  msg.className = 'status-msg';
-
-  const res = await fetch(`${API}/api/guests/bulk`, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ guests: guestsToAdd })
-  });
-  if (!res.ok) {
-    msg.textContent = 'Ocurrió un error al agregar la lista.';
-    msg.className = 'status-msg err';
-    return;
-  }
-  const created = await res.json();
-  msg.textContent = `¡Listo! Se generaron ${created.length} links nuevos. Bájale para copiarlos o compartirlos por WhatsApp.`;
-  msg.className = 'status-msg ok';
-  document.getElementById('f-bulk').value = '';
-  loadAll();
-}
-
 async function delGuest(id) {
   if (!confirm('¿Eliminar este invitado?')) return;
   await fetch(`${API}/api/guests/${id}`, { method: 'DELETE' });
@@ -238,6 +302,47 @@ function copyLink(link, btn) {
     const original = btn.textContent;
     btn.textContent = '¡Copiado!';
     setTimeout(() => btn.textContent = original, 1500);
+  });
+}
+
+async function importBulk() {
+  const raw = document.getElementById('bulk-textarea').value;
+  const status = document.getElementById('bulk-status');
+  const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
+  if (!lines.length) {
+    status.textContent = 'No hay nada que importar — pega la lista primero.';
+    status.className = 'status-msg err';
+    return;
+  }
+  let ok = 0, fail = 0;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const idx = line.lastIndexOf(',');
+    if (idx === -1) { fail++; continue; }
+    const nombre = line.slice(0, idx).trim();
+    const pases = parseInt(line.slice(idx + 1).trim(), 10);
+    if (!nombre || !pases || pases < 1) { fail++; continue; }
+    status.textContent = `Importando ${i + 1} de ${lines.length}… (${nombre})`;
+    status.className = 'status-msg';
+    try {
+      const res = await fetch(`${API}/api/guests`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre, pases })
+      });
+      if (res.ok) ok++; else fail++;
+    } catch (err) {
+      fail++;
+    }
+  }
+  status.textContent = `¡Listo! ${ok} invitados importados${fail ? `, ${fail} con error (revisa el formato)` : ''}.`;
+  status.className = fail ? 'status-msg err' : 'status-msg ok';
+  loadAll();
+}
+
+function copyAllLinks() {
+  const lines = guests.map(g => `${g.nombre}: ${window.location.origin}/invitacion.html?id=${g.id}`);
+  navigator.clipboard.writeText(lines.join('\n')).then(() => {
+    alert('Copiado — pega esto donde quieras armar tus mensajes de WhatsApp.');
   });
 }
 

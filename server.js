@@ -161,21 +161,6 @@ app.post('/api/guests', async (req, res) => {
   res.json(guest);
 });
 
-app.post('/api/guests/bulk', async (req, res) => {
-  const { guests } = req.body;
-  if (!Array.isArray(guests) || !guests.length) {
-    return res.status(400).json({ error: 'Falta la lista de invitados' });
-  }
-  const created = [];
-  for (const g of guests) {
-    const nombre = (g.nombre || '').trim();
-    const pases = Number(g.pases) || 2;
-    if (!nombre) continue;
-    created.push(await Guests.create({ nombre, pases }));
-  }
-  res.json(created);
-});
-
 app.put('/api/guests/:id', async (req, res) => {
   const guest = await Guests.update(req.params.id, req.body);
   if (!guest) return res.status(404).json({ error: 'Invitado no encontrado' });
