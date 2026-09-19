@@ -176,9 +176,14 @@ app.post('/api/rsvp/:id', async (req, res) => {
   const existing = await Guests.get(req.params.id);
   if (!existing) return res.status(404).json({ error: 'Invitado no encontrado' });
   const { attending, pases } = req.body;
+  // Nunca permitir más pases de los asignados por el festejado, ni menos de 1
+  let pasesFinal;
+  if (attending && pases) {
+    pasesFinal = Math.min(Math.max(1, Number(pases) || 1), existing.pases);
+  }
   const guest = await Guests.update(req.params.id, {
     estado: attending ? 'confirmado' : 'no_asiste',
-    pases: pases ? Number(pases) : undefined,
+    pases: pasesFinal,
     confirmedAt: new Date().toISOString()
   });
   res.json(guest);

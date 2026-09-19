@@ -789,12 +789,9 @@ p { line-height: 1.65; margin: 0; }
       <div class="ray blue" style="transform:rotate(30deg);"></div>
       <div class="ball3d-scene" style="width:34px; height:34px;"><div class="ball3d" id="ball3d-mini-3"></div></div>
     </div>
-    <p class="sub">Confírmame tu asistencia, tu pase es válido para hasta 2 personas.<br/>Por favor confirma antes del <b>27 de septiembre</b>.</p>
+    <p class="sub">Confírmame tu asistencia, tu pase es válido para hasta <b id="pass-limit-text">2</b> personas.<br/>Por favor confirma antes del <b>27 de septiembre</b>.</p>
     <div class="rsvp-form">
-      <select id="rsvp-count">
-        <option value="1">Voy solo/a (1 persona)</option>
-        <option value="2" selected>Vamos los 2</option>
-      </select>
+      <select id="rsvp-count"></select>
       <div class="rsvp-btns">
         <button class="rsvp-btn" id="rsvp-yes" onclick="setRSVP(true)">Sí, ahí estaré</button>
         <button class="rsvp-btn" id="rsvp-no" onclick="setRSVP(false)">No podré ir</button>
@@ -1043,6 +1040,23 @@ const urlParams = new URLSearchParams(window.location.search);
 const guestId = urlParams.get('id');
 let currentGuest = null;
 
+function buildPassOptions(max) {
+  max = Math.max(1, parseInt(max, 10) || 1);
+  const sel = document.getElementById('rsvp-count');
+  sel.innerHTML = '';
+  for (let i = 1; i <= max; i++) {
+    const opt = document.createElement('option');
+    opt.value = String(i);
+    if (i === 1) opt.textContent = max === 1 ? 'Voy solo/a (1 persona)' : 'Voy solo/a (1 persona)';
+    else if (i === max && max === 2) opt.textContent = 'Vamos los 2';
+    else opt.textContent = `Vamos ${i} personas`;
+    sel.appendChild(opt);
+  }
+  sel.value = String(max);
+  const limit = document.getElementById('pass-limit-text');
+  if (limit) limit.textContent = max;
+}
+
 async function loadGuest() {
   if (!guestId) {
     new QRCode(document.getElementById('pass-qr'), {
@@ -1058,7 +1072,7 @@ async function loadGuest() {
     document.getElementById('greeting-name').textContent = currentGuest.nombre;
     document.getElementById('pass-name-text').textContent = currentGuest.nombre;
     document.getElementById('pass-count-text').textContent = `Válido para ${currentGuest.pases} persona${currentGuest.pases > 1 ? 's' : ''}`;
-    document.getElementById('rsvp-count').value = String(Math.min(currentGuest.pases, 2));
+    buildPassOptions(currentGuest.pases);
     new QRCode(document.getElementById('pass-qr'), {
       text: window.location.origin + `/invitacion.html?id=${currentGuest.id}`,
       width: 140, height: 140, colorDark: '#141414', colorLight: '#ffffff'
@@ -1067,6 +1081,7 @@ async function loadGuest() {
     document.getElementById('rsvp-msg').textContent = 'No encontramos tu invitación — revisa el link que te compartieron.';
   }
 }
+buildPassOptions(2);
 loadGuest();
 
 /* ---------------- RSVP ---------------- */
