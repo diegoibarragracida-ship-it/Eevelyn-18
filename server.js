@@ -41,6 +41,7 @@ async function initDB() {
         id TEXT PRIMARY KEY,
         nombre TEXT NOT NULL,
         pases INTEGER NOT NULL,
+        pases_confirmados INTEGER,
         estado TEXT NOT NULL DEFAULT 'pendiente',
         checked_in BOOLEAN NOT NULL DEFAULT FALSE,
         checked_in_at TIMESTAMPTZ,
@@ -48,6 +49,7 @@ async function initDB() {
         confirmed_at TIMESTAMPTZ
       );
     `);
+    await pool.query(`ALTER TABLE guests ADD COLUMN IF NOT EXISTS pases_confirmados INTEGER;`);
     console.log('✅ Conectado a PostgreSQL — los datos son permanentes.');
   } else {
     console.log('⚠️  Sin DATABASE_URL — usando db.json local (solo para pruebas, NO usar así en producción).');
@@ -64,6 +66,7 @@ function rowToGuest(row) {
     id: row.id,
     nombre: row.nombre,
     pases: row.pases,
+    pasesConfirmados: row.pases_confirmados,
     estado: row.estado,
     checkedIn: row.checked_in,
     checkedInAt: row.checked_in_at,
@@ -113,6 +116,7 @@ const Guests = {
       let i = 1;
       if (fields.nombre !== undefined) { sets.push(`nombre = $${i++}`); values.push(fields.nombre); }
       if (fields.pases !== undefined) { sets.push(`pases = $${i++}`); values.push(fields.pases); }
+      if (fields.pasesConfirmados !== undefined) { sets.push(`pases_confirmados = $${i++}`); values.push(fields.pasesConfirmados); }
       if (fields.estado !== undefined) { sets.push(`estado = $${i++}`); values.push(fields.estado); }
       if (fields.checkedIn !== undefined) { sets.push(`checked_in = $${i++}`); values.push(fields.checkedIn); }
       if (fields.checkedInAt !== undefined) { sets.push(`checked_in_at = $${i++}`); values.push(fields.checkedInAt); }
@@ -176,14 +180,14 @@ app.post('/api/rsvp/:id', async (req, res) => {
   const existing = await Guests.get(req.params.id);
   if (!existing) return res.status(404).json({ error: 'Invitado no encontrado' });
   const { attending, pases } = req.body;
-  // Nunca permitir más pases de los asignados por el festejado, ni menos de 1
-  let pasesFinal;
-  if (attending && pases) {
-    pasesFinal = Math.min(Math.max(1, Number(pases) || 1), existing.pases);
+  let pasesConfirmados;
+  if (pases) {
+    // Nunca exceder el cupo que el festejado le asignó a este invitado
+    pasesConfirmados = Math.min(Number(pases), existing.pases);
   }
   const guest = await Guests.update(req.params.id, {
     estado: attending ? 'confirmado' : 'no_asiste',
-    pases: pasesFinal,
+    pasesConfirmados: attending ? pasesConfirmados : undefined,
     confirmedAt: new Date().toISOString()
   });
   res.json(guest);
@@ -204,7 +208,7 @@ app.get('/api/stats', async (req, res) => {
     confirmados: guests.filter(g => g.estado === 'confirmado').length,
     noAsisten: guests.filter(g => g.estado === 'no_asiste').length,
     pendientes: guests.filter(g => g.estado === 'pendiente').length,
-    pasesConfirmados: guests.filter(g => g.estado === 'confirmado').reduce((s, g) => s + g.pases, 0),
+    pasesConfirmados: guests.filter(g => g.estado === 'confirmado').reduce((s, g) => s + (g.pasesConfirmados ?? g.pases), 0),
     registrados: guests.filter(g => g.checkedIn).length
   });
 });

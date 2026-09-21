@@ -792,7 +792,7 @@ p { line-height: 1.65; margin: 0; }
       <div class="ray blue" style="transform:rotate(30deg);"></div>
       <div class="ball3d-scene" style="width:34px; height:34px;"><div class="ball3d" id="ball3d-mini-3"></div></div>
     </div>
-    <p class="sub">Confírmame tu asistencia, tu pase es válido para hasta 2 personas.<br/>Por favor confirma antes del <span class="deadline-highlight">27 DE SEPTIEMBRE</span>.</p>
+    <p class="sub">Confírmame tu asistencia, tu pase es válido para hasta <span id="pass-limit-text">2</span> persona<span id="pass-limit-plural">s</span>.<br/>Por favor confirma antes del <span class="deadline-highlight">27 DE SEPTIEMBRE</span>.</p>
     <div class="rsvp-form">
       <select id="rsvp-count">
         <option value="1">Voy solo/a (1 persona)</option>
@@ -1047,6 +1047,18 @@ const urlParams = new URLSearchParams(window.location.search);
 const guestId = urlParams.get('id');
 let currentGuest = null;
 
+function buildPassOptions(n) {
+  const select = document.getElementById('rsvp-count');
+  select.innerHTML = '';
+  for (let i = 1; i <= n; i++) {
+    const opt = document.createElement('option');
+    opt.value = String(i);
+    opt.textContent = i === 1 ? 'Voy solo/a (1 persona)' : (i === n ? `Vamos los ${i}` : `Vamos ${i}`);
+    if (i === n) opt.selected = true;
+    select.appendChild(opt);
+  }
+}
+
 async function loadGuest() {
   if (!guestId) {
     new QRCode(document.getElementById('pass-qr'), {
@@ -1062,7 +1074,10 @@ async function loadGuest() {
     document.getElementById('greeting-name').textContent = currentGuest.nombre;
     document.getElementById('pass-name-text').textContent = currentGuest.nombre;
     document.getElementById('pass-count-text').textContent = `Válido para ${currentGuest.pases} persona${currentGuest.pases > 1 ? 's' : ''}`;
-    document.getElementById('rsvp-count').value = String(Math.min(currentGuest.pases, 2));
+    document.getElementById('pass-limit-text').textContent = currentGuest.pases;
+    document.getElementById('pass-limit-plural').textContent = currentGuest.pases > 1 ? 's' : '';
+    buildPassOptions(currentGuest.pases);
+    document.getElementById('pass-count-text').textContent = `Válido para ${document.getElementById('rsvp-count').value} persona${document.getElementById('rsvp-count').value > 1 ? 's' : ''}`;
     new QRCode(document.getElementById('pass-qr'), {
       text: window.location.origin + `/invitacion.html?id=${currentGuest.id}`,
       width: 140, height: 140, colorDark: '#141414', colorLight: '#ffffff'
