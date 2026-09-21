@@ -353,6 +353,8 @@ p { line-height: 1.65; margin: 0; }
 /* --- hero --- */
 .inv-hero { position: relative; padding: 20px 24px 54px; text-align: center; background: linear-gradient(180deg, var(--night) 0%, var(--plum) 55%, var(--night) 100%); color: var(--white); overflow: hidden; }
 .theme-badge { display: inline-block; padding: 6px 18px; border: 1px solid rgba(255,255,255,0.4); border-radius: 999px; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--silver-light); margin-bottom: 18px; box-shadow: 0 0 12px rgba(255,255,255,0.25); }
+.deadline-highlight { display: inline-block; font-weight: 800; color: #ffffff; text-shadow: 0 0 6px #ffffff, 0 0 14px #ffffff, 0 0 26px rgba(255,255,255,0.9), 0 0 40px rgba(255,255,255,0.6); animation: deadline-pulse 1.8s ease-in-out infinite; letter-spacing: 0.02em; }
+@keyframes deadline-pulse { 0%,100% { text-shadow: 0 0 6px #ffffff, 0 0 14px #ffffff, 0 0 26px rgba(255,255,255,0.85), 0 0 40px rgba(255,255,255,0.55); } 50% { text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 36px rgba(255,255,255,1), 0 0 55px rgba(255,255,255,0.8); } }
 .eyebrow { display: block; font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 6px; }
 .inv-hero h1 { font-size: 3.4rem; color: var(--white); text-shadow: 0 0 22px rgba(255,255,255,0.4); margin-top: 8px; letter-spacing: 0.01em; }
 .hero-tagline { font-family: 'Parisienne', cursive; font-size: 1.4rem; color: var(--silver-light); margin: 12px auto 4px; max-width: 320px; line-height: 1.4; text-shadow: 0 0 10px rgba(255,255,255,0.25); }
@@ -745,8 +747,9 @@ p { line-height: 1.65; margin: 0; }
 
   <div class="section-block reveal" style="padding-top:0;">
     <div class="gift-card led-card" id="gift-section">
-      <h3 style="color:var(--silver-light); font-size:1.02rem; margin-bottom:8px;"><span class="mini-disco" style="font-size:0.9em;">✨</span> Lluvia de sobres</h3>
-      <p>Tu presencia es el regalo más importante para mí. Si deseas obsequiarme algo, ten tu sobre listo, ¡una lluvia de sobres será muy apreciada! 🖤</p>
+      <h3 style="color:var(--silver-light); font-size:1.02rem; margin-bottom:8px;"><span class="mini-disco" style="font-size:0.9em;">🎁</span> REGALOS</h3>
+      <p style="margin-bottom:8px;"><span class="deadline-highlight">LLUVIA DE SOBRES</span></p>
+      <p>EL MEJOR REGALO ES TU PRESENCIA, PERO SI DESEAS DARME ALGÚN PRESENTE, UNA LLUVIA DE SOBRES EN EFECTIVO $ TE ESTARÁ ESPERANDO EN LA RECEPCIÓN. 🖤</p>
     </div>
   </div>
 
@@ -789,9 +792,12 @@ p { line-height: 1.65; margin: 0; }
       <div class="ray blue" style="transform:rotate(30deg);"></div>
       <div class="ball3d-scene" style="width:34px; height:34px;"><div class="ball3d" id="ball3d-mini-3"></div></div>
     </div>
-    <p class="sub">Confírmame tu asistencia, tu pase es válido para hasta <b id="pass-limit-text">2</b> personas.<br/>Por favor confirma antes del <b>27 de septiembre</b>.</p>
+    <p class="sub">Confírmame tu asistencia, tu pase es válido para hasta 2 personas.<br/>Por favor confirma antes del <span class="deadline-highlight">27 DE SEPTIEMBRE</span>.</p>
     <div class="rsvp-form">
-      <select id="rsvp-count"></select>
+      <select id="rsvp-count">
+        <option value="1">Voy solo/a (1 persona)</option>
+        <option value="2" selected>Vamos los 2</option>
+      </select>
       <div class="rsvp-btns">
         <button class="rsvp-btn" id="rsvp-yes" onclick="setRSVP(true)">Sí, ahí estaré</button>
         <button class="rsvp-btn" id="rsvp-no" onclick="setRSVP(false)">No podré ir</button>
@@ -826,6 +832,7 @@ p { line-height: 1.65; margin: 0; }
   <div class="inv-footer">
     Invitación digital para los 18 años de Evelyn
     <div class="pkg-tag">🖤 Tema · Disco Glam</div>
+    <div class="pkg-tag">✨ ¿Quieres una invitación digital para tu evento? <a href="https://invitaciones-digitales-landing.onrender.com/" target="_blank" rel="noopener" style="color:inherit; text-decoration:underline;">Contáctanos aquí</a></div>
   </div>
 </div>
 
@@ -1040,23 +1047,6 @@ const urlParams = new URLSearchParams(window.location.search);
 const guestId = urlParams.get('id');
 let currentGuest = null;
 
-function buildPassOptions(max) {
-  max = Math.max(1, parseInt(max, 10) || 1);
-  const sel = document.getElementById('rsvp-count');
-  sel.innerHTML = '';
-  for (let i = 1; i <= max; i++) {
-    const opt = document.createElement('option');
-    opt.value = String(i);
-    if (i === 1) opt.textContent = max === 1 ? 'Voy solo/a (1 persona)' : 'Voy solo/a (1 persona)';
-    else if (i === max && max === 2) opt.textContent = 'Vamos los 2';
-    else opt.textContent = `Vamos ${i} personas`;
-    sel.appendChild(opt);
-  }
-  sel.value = String(max);
-  const limit = document.getElementById('pass-limit-text');
-  if (limit) limit.textContent = max;
-}
-
 async function loadGuest() {
   if (!guestId) {
     new QRCode(document.getElementById('pass-qr'), {
@@ -1072,7 +1062,7 @@ async function loadGuest() {
     document.getElementById('greeting-name').textContent = currentGuest.nombre;
     document.getElementById('pass-name-text').textContent = currentGuest.nombre;
     document.getElementById('pass-count-text').textContent = `Válido para ${currentGuest.pases} persona${currentGuest.pases > 1 ? 's' : ''}`;
-    buildPassOptions(currentGuest.pases);
+    document.getElementById('rsvp-count').value = String(Math.min(currentGuest.pases, 2));
     new QRCode(document.getElementById('pass-qr'), {
       text: window.location.origin + `/invitacion.html?id=${currentGuest.id}`,
       width: 140, height: 140, colorDark: '#141414', colorLight: '#ffffff'
@@ -1081,7 +1071,6 @@ async function loadGuest() {
     document.getElementById('rsvp-msg').textContent = 'No encontramos tu invitación — revisa el link que te compartieron.';
   }
 }
-buildPassOptions(2);
 loadGuest();
 
 /* ---------------- RSVP ---------------- */
