@@ -50,6 +50,7 @@ th { color: var(--ink-soft); font-weight: 600; text-transform: uppercase; font-s
   border: none; background: none; cursor: pointer; font-size: 0.85rem; color: var(--plum); margin-right: 8px;
 }
 .row-actions button.del { color: var(--bad); }
+.row-actions button.edit { color: var(--plum); text-decoration: underline; }
 .link-copy { font-size: 0.75rem; color: var(--silver-dark); cursor: pointer; text-decoration: underline; background:none; border:none; font-family: inherit; }
 .empty { text-align:center; color: var(--ink-soft); padding: 30px 0; font-style: italic; }
 .toolbar { display:flex; justify-content: space-between; align-items:center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
@@ -259,6 +260,7 @@ function renderTable() {
       <td>${g.checkedIn ? '<span class="checkin-yes">✔ Sí</span>' : '<span class="checkin-no">—</span>'}</td>
       <td><button class="link-copy" onclick="copyLink('${link}', this)">Copiar link</button></td>
       <td class="row-actions">
+        <button class="edit" onclick="editPases('${g.id}', ${g.pases})">Editar pases</button>
         <button class="del" onclick="delGuest('${g.id}')">Eliminar</button>
       </td>
     `;
@@ -295,6 +297,22 @@ async function addGuest() {
 async function delGuest(id) {
   if (!confirm('¿Eliminar este invitado?')) return;
   await fetch(`${API}/api/guests/${id}`, { method: 'DELETE' });
+  loadAll();
+}
+
+async function editPases(id, current) {
+  const input = prompt('¿Cuántos pases le corresponden a este invitado?', current);
+  if (input === null) return;
+  const pases = parseInt(input, 10);
+  if (!pases || pases < 1) {
+    alert('Escribe un número válido de pases.');
+    return;
+  }
+  await fetch(`${API}/api/guests/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ pases })
+  });
   loadAll();
 }
 
