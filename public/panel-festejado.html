@@ -7,58 +7,84 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --night: #060608; --plum: #1a1b1f; --plum-soft: #2b2d33;
-  --cream: #f4f4f6; --cream-dark: #dcdde1; --ink: #17181c; --ink-soft: #6b6d75;
-  --silver: #c7cad1; --silver-dark: #888b93; --white: #ffffff;
-  --ok: #3a7a52; --warn: #a3821f; --bad: #9a3b3b;
+  --night: #0b0b0d; --night-deep: #000000; --plum: #1e2027; --plum-soft: #2b2d33;
+  --panel: #16171b; --panel-border: rgba(255,255,255,0.12);
+  --ink: #f2f3f5; --ink-soft: #b7bac2;
+  --silver: #c7cad1; --silver-dark: #9698a0; --white: #ffffff;
+  --ok: #4caf7d; --warn: #d9b04c; --bad: #e0685f;
 }
 * { box-sizing: border-box; }
-body { margin:0; font-family:'Cormorant Garamond', Georgia, serif; background: var(--cream); color: var(--ink); }
+body { margin:0; font-family:'Cormorant Garamond', Georgia, serif; background: linear-gradient(160deg, var(--night), var(--night-deep) 80%); color: var(--ink); min-height:100vh; }
 h1,h2,h3 { font-family:'Cinzel', serif; margin:0; }
-.wrap { max-width: 900px; margin: 0 auto; padding: 30px 20px 60px; }
+.wrap { max-width: 960px; margin: 0 auto; padding: 30px 20px 60px; }
 header { text-align:center; margin-bottom: 30px; }
 header .disco { font-size: 2rem; }
-header h1 { font-size: 1.6rem; color: var(--plum); margin-top: 6px; }
-header p { color: var(--ink-soft); font-size: 0.95rem; margin-top: 4px; }
+header h1 { font-size: 1.7rem; color: var(--white); margin-top: 6px; letter-spacing:0.02em; }
+header p { color: var(--ink-soft); font-size: 0.98rem; margin-top: 4px; }
 
-.stats { display:grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap: 12px; margin-bottom: 30px; }
-.stat-card { background: var(--white); border: 1px solid var(--cream-dark); border-radius: 14px; padding: 16px; text-align:center; }
-.stat-card strong { display:block; font-family:'Cinzel', serif; font-size: 1.6rem; color: var(--plum); }
-.stat-card span { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+.panel-links { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:20px; }
+.panel-links a { color: var(--silver); font-size: 0.85rem; text-decoration: none; border: 1px solid var(--panel-border); padding: 7px 16px; border-radius: 999px; }
+.panel-links a:hover { background: rgba(255,255,255,0.06); }
 
-.panel { background: var(--white); border: 1px solid var(--cream-dark); border-radius: 16px; padding: 22px; margin-bottom: 24px; }
-.panel h2 { font-size: 1.1rem; color: var(--plum); margin-bottom: 14px; }
+.stats { display:grid; grid-template-columns: repeat(auto-fit, minmax(130px,1fr)); gap: 12px; margin-bottom: 30px; }
+.stat-card { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 14px; padding: 16px; text-align:center; }
+.stat-card strong { display:block; font-family:'Cinzel', serif; font-size: 1.7rem; color: var(--white); }
+.stat-card span { font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+
+.panel { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 16px; padding: 22px; margin-bottom: 24px; box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+.panel h2 { font-size: 1.15rem; color: var(--white); margin-bottom: 14px; }
 
 .add-form { display:flex; gap: 10px; flex-wrap: wrap; }
-.add-form input { flex:1; min-width: 160px; padding: 10px 12px; border-radius: 9px; border: 1px solid var(--cream-dark); font-family: inherit; font-size: 0.95rem; }
+.add-form input, .add-form textarea, textarea {
+  background: rgba(255,255,255,0.06); border: 1px solid var(--panel-border); color: var(--ink);
+  border-radius: 9px; font-family: inherit; font-size: 0.95rem; padding: 10px 12px;
+}
+.add-form input { flex:1; min-width: 160px; }
+.add-form input::placeholder, textarea::placeholder { color: var(--ink-soft); }
 .add-form button {
-  padding: 10px 20px; border-radius: 9px; border: none; background: var(--plum); color: var(--white);
+  padding: 10px 20px; border-radius: 9px; border: 1px solid var(--panel-border); background: var(--plum); color: var(--white);
   font-family: inherit; font-size: 0.95rem; cursor: pointer;
 }
-.add-form button:hover { background: var(--night); }
+.add-form button:hover { background: #2a2c33; }
+textarea { width:100%; resize: vertical; }
 
 table { width: 100%; border-collapse: collapse; margin-top: 6px; }
-th, td { text-align: left; padding: 10px 8px; font-size: 0.88rem; border-bottom: 1px solid var(--cream-dark); }
-th { color: var(--ink-soft); font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.06em; }
-.badge { display:inline-block; padding: 3px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 600; }
-.badge.pendiente { background: rgba(163,130,31,0.15); color: var(--warn); }
-.badge.confirmado { background: rgba(58,122,82,0.15); color: var(--ok); }
-.badge.no_asiste { background: rgba(154,59,59,0.15); color: var(--bad); }
-.checkin-yes { color: var(--ok); font-weight:600; }
+th, td { text-align: left; padding: 12px 8px; font-size: 0.92rem; border-bottom: 1px solid var(--panel-border); color: var(--ink); }
+th { color: var(--silver-dark); font-weight: 600; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.07em; }
+.badge { display:inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.76rem; font-weight: 700; }
+.badge.pendiente { background: rgba(217,176,76,0.18); color: var(--warn); }
+.badge.confirmado { background: rgba(76,175,125,0.18); color: var(--ok); }
+.badge.no_asiste { background: rgba(224,104,95,0.18); color: var(--bad); }
+.checkin-yes { color: var(--ok); font-weight:700; }
 .checkin-no { color: var(--ink-soft); }
+.row-actions { display:flex; gap: 6px; flex-wrap: wrap; }
 .row-actions button {
-  border: none; background: none; cursor: pointer; font-size: 0.85rem; color: var(--plum); margin-right: 8px;
+  border: 1px solid var(--panel-border); background: transparent; cursor: pointer; font-size: 0.8rem; padding: 6px 12px; border-radius: 9px; color: var(--silver);
 }
-.row-actions button.del { color: var(--bad); }
-.row-actions button.edit { color: var(--plum); text-decoration: underline; }
-.link-copy { font-size: 0.75rem; color: var(--silver-dark); cursor: pointer; text-decoration: underline; background:none; border:none; font-family: inherit; }
+.row-actions button.del { color: var(--bad); border-color: rgba(224,104,95,0.5); }
+.row-actions button.del:hover { background: rgba(224,104,95,0.12); }
+.row-actions button.edit { color: var(--white); }
+.row-actions button.edit:hover { background: rgba(255,255,255,0.06); }
+.row-actions button.whatsapp { color: #3fd67a; border-color: #2f7d51; }
+.row-actions button.whatsapp:hover { background: rgba(63,214,122,0.12); }
+.link-copy { font-size: 0.78rem; color: var(--silver); cursor: pointer; text-decoration: underline; background:none; border:none; font-family: inherit; padding:0; }
 .empty { text-align:center; color: var(--ink-soft); padding: 30px 0; font-style: italic; }
 .toolbar { display:flex; justify-content: space-between; align-items:center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
 .toolbar button {
-  padding: 8px 16px; border-radius: 999px; border: 1.4px solid var(--silver-dark); background: transparent;
-  color: var(--plum); font-family: inherit; font-size: 0.85rem; cursor: pointer;
+  padding: 8px 16px; border-radius: 999px; border: 1.4px solid var(--panel-border); background: transparent;
+  color: var(--silver); font-family: inherit; font-size: 0.85rem; cursor: pointer;
 }
-.status-msg { text-align:center; font-size: 0.85rem; margin-top: 10px; min-height: 1.2em; }
+.toolbar button:hover { background: rgba(255,255,255,0.06); }
+.status-msg { text-align:center; font-size: 0.88rem; margin-top: 10px; min-height: 1.2em; color: var(--ink-soft); }
+.status-msg.ok { color: var(--ok); }
+.status-msg.err { color: var(--bad); }
+@media (max-width: 640px) {
+  table, thead, tbody, th, td, tr { display: block; }
+  thead { display:none; }
+  tr { border-bottom: 1px solid var(--panel-border); padding: 10px 0; }
+  td { border: none; padding: 4px 0; }
+  td::before { content: attr(data-label); display:block; font-size: 0.7rem; text-transform: uppercase; letter-spacing:0.06em; color: var(--silver-dark); margin-bottom: 2px; }
+}
 .status-msg.ok { color: var(--ok); }
 .status-msg.err { color: var(--bad); }
 </style>
@@ -70,6 +96,11 @@ th { color: var(--ink-soft); font-weight: 600; text-transform: uppercase; font-s
     <h1>Panel del festejado</h1>
     <p>Evelyn — Mis 18 años · 10 de octubre, 2026</p>
   </header>
+
+  <div class="panel-links">
+    <a href="invitacion.html" target="_blank">✨ Ver invitación</a>
+    <a href="panel-recepcion.html" target="_blank">🚪 Panel de recepción (check-in de la puerta)</a>
+  </div>
 
   <div class="stats" id="stats">
     <div class="stat-card"><strong id="s-total">–</strong><span>Invitados</span></div>
@@ -88,123 +119,6 @@ th { color: var(--ink-soft); font-weight: 600; text-transform: uppercase; font-s
       <button onclick="addGuest()">Agregar y generar link</button>
     </div>
     <div class="status-msg" id="add-msg"></div>
-  </div>
-
-  <div class="panel">
-    <h2>📥 Importar lista completa</h2>
-    <p style="font-size:0.85rem; color:var(--ink-soft); margin:0 0 10px;">Una línea por invitado, formato <code>Nombre, número de pases</code>. Ya viene precargada tu lista — solo revisa y da clic en "Importar todos".</p>
-    <textarea id="bulk-textarea" rows="8" style="width:100%; padding:10px 12px; border-radius:9px; border:1px solid var(--cream-dark); font-family:inherit; font-size:0.85rem; resize:vertical;" placeholder="Yadira Sanchez Hernandez, 3&#10;Araceli Hernandez Garcia, 4&#10;...">Yadira Sanchez Hernandez, 3
-Araceli Hernandez Garcia, 4
-Celia Velez Cervantes, 1
-Raymundo Vaylon Romero, 5
-Estefani Ronquillo Velazquez, 3
-Adrian Baylon Velez, 4
-Diana Mayumi Lopez Luquez, 5
-Luis Angel Lopez Luquez, 4
-Gonzalo Lopez Luquez, 3
-Antelmo Lopez Regules, 3
-Agustin Ginés Lara, 4
-Jose Alfredo Garcia Oropeza, 5
-Jaime Flores de la Vega, 3
-Carolina Ramires Rosas, 3
-Erick Hernandez Garcia, 2
-Octavio Hernandez Garcia, 2
-Erika Nayit Hernandez Ramirez, 4
-Virginia Larissa Hernandez Lopez, 4
-Omar Blanco Perez, 4
-Flor Estefani Hernandez Lopez, 4
-Adrian Garcia Vera, 1
-Mario Garcia Vera, 1
-Rafael Garcia Vera, 1
-Aide Garcia Breton, 4
-Angelina Hernandez Martinez, 3
-Ma. Elena Cruz Hernandez, 1
-Leticia Cruz Hernandez, 5
-Elvira Bermudez Cruz, 4
-Alejandra Bermudez Cruz, 4
-Joaquin Cruz Hernandez, 4
-Adela Flores Soriano, 2
-Andrea Roque Flores, 3
-Lupe Flores Soriano, 2
-Rufina Romero Flores, 3
-Lili Oseguera Romero, 3
-Ma. Angeles Hernandez, 3
-Andrea Garcia Regules, 1
-Emilia Rodriguez Soriano, 3
-Joel Luna, 2
-Cecilia Vasquez, 5
-Familia Zanabria, 3
-Familia Sostaita, 3
-Abigail Diaz, 1
-Zoe Diaz, 2
-Estrella Gutierrez, 1
-Mayte Ravelo, 1
-Angelica Cruz, 1
-Belain Garcia, 1
-Daira de la Cruz, 1
-Rayo Lerin, 1
-Jimena Martinez, 1
-Julissa Alcantara, 1
-Itzel Castro, 1
-Itzel Torres, 1
-Victoria Velazquez, 1
-Kamila Torres, 1
-Sara Montiel, 1
-Jennifer Peña, 1
-Ivanna Mendez, 1
-Ivana Ochoa, 1
-Ivana Gomez, 1
-Ana Pau Rodriguez, 1
-Miranda Torres, 1
-Valeria Rodriguez, 1
-Majo Estevez, 1
-Alejandra Jimenez, 1
-Naomi Soto, 1
-Nina Garcia, 1
-Vladimir Gonzales, 1
-Renata Godinez, 1
-Jessica Alva, 1
-Adolfo, 1
-Irvin Cruz, 1
-Alexander Ronquillo, 1
-Dafne Conde, 1
-Aldo Rosas, 1
-Rodrigo Gomez, 2
-Emylieth Castillo, 2
-Lian Santana, 1
-Emily Martinez, 1
-Jessica Jimenez, 1
-Melly Merino, 1
-Ingrid Cano, 1
-Naomi Polo, 1
-Victoria Tamburrino, 1
-Paula Quintero, 1
-Marcos Galvez, 1
-Ary Conde, 1
-Majo Mancera, 1
-Benjamin Rodriguez, 1
-Hector Nava, 1
-Luz Velasquez, 1
-Victor Viveros, 1
-Alexis Anguiano, 2
-Mario Santos, 1
-Hiram Ramirez, 1
-Fernando Gutierrez, 1
-David Sanchez, 1
-Alan Rosas, 1
-Pablo Guzman, 1
-Dragan Olivos, 1
-Eduardo Sangabriel, 1
-Diego Martinez, 1
-Lupita Santibañez, 1
-Arely Sarmiento, 1
-Ximena Cruz, 1
-Alvaro Bermudez, 1
-Sergio Rojas, 1</textarea>
-    <div style="margin-top:10px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-      <button onclick="importBulk()" style="padding:10px 20px; border-radius:9px; border:none; background:var(--plum); color:var(--white); font-family:inherit; font-size:0.95rem; cursor:pointer;">Importar todos</button>
-      <span id="bulk-status" class="status-msg" style="margin-top:0;"></span>
-    </div>
   </div>
 
   <div class="panel">
@@ -260,7 +174,8 @@ function renderTable() {
       <td>${g.checkedIn ? '<span class="checkin-yes">✔ Sí</span>' : '<span class="checkin-no">—</span>'}</td>
       <td><button class="link-copy" onclick="copyLink('${link}', this)">Copiar link</button></td>
       <td class="row-actions">
-        <button class="edit" onclick="editPases('${g.id}', ${g.pases})">Editar pases</button>
+        <button class="whatsapp" onclick="sendWhatsapp('${g.nombre.replace(/'/g, "\\'")}', '${link}')">WhatsApp</button>
+        <button class="edit" onclick="editGuest('${g.id}', '${g.nombre.replace(/'/g, "\\'")}', ${g.pases})">Editar</button>
         <button class="del" onclick="delGuest('${g.id}')">Eliminar</button>
       </td>
     `;
@@ -300,20 +215,27 @@ async function delGuest(id) {
   loadAll();
 }
 
-async function editPases(id, current) {
-  const input = prompt('¿Cuántos pases le corresponden a este invitado?', current);
-  if (input === null) return;
-  const pases = parseInt(input, 10);
-  if (!pases || pases < 1) {
-    alert('Escribe un número válido de pases.');
+async function editGuest(id, currentNombre, currentPases) {
+  const nombre = prompt('Nombre de la familia / invitado:', currentNombre);
+  if (nombre === null) return;
+  const inputPases = prompt('¿Cuántos pases le corresponden?', currentPases);
+  if (inputPases === null) return;
+  const pases = parseInt(inputPases, 10);
+  if (!nombre.trim() || !pases || pases < 1) {
+    alert('Revisa el nombre y el número de pases — no son válidos.');
     return;
   }
   await fetch(`${API}/api/guests/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ pases })
+    body: JSON.stringify({ nombre: nombre.trim(), pases })
   });
   loadAll();
+}
+
+function sendWhatsapp(nombre, link) {
+  const msg = `¡Hola ${nombre}! 🖤✨ Aquí está tu invitación a los 18 años de Evelyn: ${link}`;
+  window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
 function copyLink(link, btn) {
@@ -322,40 +244,6 @@ function copyLink(link, btn) {
     btn.textContent = '¡Copiado!';
     setTimeout(() => btn.textContent = original, 1500);
   });
-}
-
-async function importBulk() {
-  const raw = document.getElementById('bulk-textarea').value;
-  const status = document.getElementById('bulk-status');
-  const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
-  if (!lines.length) {
-    status.textContent = 'No hay nada que importar — pega la lista primero.';
-    status.className = 'status-msg err';
-    return;
-  }
-  let ok = 0, fail = 0;
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    const idx = line.lastIndexOf(',');
-    if (idx === -1) { fail++; continue; }
-    const nombre = line.slice(0, idx).trim();
-    const pases = parseInt(line.slice(idx + 1).trim(), 10);
-    if (!nombre || !pases || pases < 1) { fail++; continue; }
-    status.textContent = `Importando ${i + 1} de ${lines.length}… (${nombre})`;
-    status.className = 'status-msg';
-    try {
-      const res = await fetch(`${API}/api/guests`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, pases })
-      });
-      if (res.ok) ok++; else fail++;
-    } catch (err) {
-      fail++;
-    }
-  }
-  status.textContent = `¡Listo! ${ok} invitados importados${fail ? `, ${fail} con error (revisa el formato)` : ''}.`;
-  status.className = fail ? 'status-msg err' : 'status-msg ok';
-  loadAll();
 }
 
 function copyAllLinks() {
